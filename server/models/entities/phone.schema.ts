@@ -1,8 +1,9 @@
 import Joi from 'joi';
+import { Schema } from 'server/shared/schema';
 import { regexValidators } from 'utils/regex';
 import { Phone } from './phone.entity';
 
-export default Joi.object<Phone>({
+const schema = Joi.object<Phone>({
   id: Joi.string().pattern(regexValidators.objectId).required(),
   color: Joi.string().required(),
   description: Joi.string().required(),
@@ -14,3 +15,5 @@ export default Joi.object<Phone>({
   processor: Joi.string().required(),
   ram: Joi.number().integer().max(64).required(),
 });
+
+export default new Schema(schema, 'phone-schema');
