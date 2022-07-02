@@ -17,7 +17,7 @@ export class Schema<T> {
       const msg = error?.message || warning?.message;
 
       throw new Error(
-        `[${this.schemaName}]: an error ocurred when validate value.\n${msg}`
+        `[schema]: an error ocurred when validate value in ${this.schemaName}.\n${msg}`
       );
     }
 
