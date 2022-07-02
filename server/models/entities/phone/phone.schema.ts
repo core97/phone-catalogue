@@ -16,4 +16,4 @@ const schema = Joi.object<Phone>({
   ram: Joi.number().integer().max(64).required(),
 });
 
-export default new Schema(schema, 'phone-schema');
+export const phoneSchema = new Schema(schema, 'phone-schema');
