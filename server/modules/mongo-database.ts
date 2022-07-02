@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 export class MongoDatabase {
   private static instance: MongoDatabase;
 
-  private cachedClient: MongoClient | undefined;
+  private cachedClient?: MongoClient;
 
   public static getInstance(): MongoDatabase {
     if (!MongoDatabase.instance) {
