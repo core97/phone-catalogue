@@ -16,7 +16,7 @@ export const Layout = ({ children }: Props) => (
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text size="lg">Catálogo</Text>
+        <Text as='h1' size="lg">Catálogo</Text>
         <Button as='link' link='/phone/creation'>
           Crear teléfono
         </Button>
