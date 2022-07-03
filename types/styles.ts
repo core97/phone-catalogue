@@ -9,3 +9,12 @@ export type FontWeight =
   | 'bold'
   | 'extrabold'
   | 'black';
+
+export type Display = 'block' | 'flex';
+
+export type FlexDistribution =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around';

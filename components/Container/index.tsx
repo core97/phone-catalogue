@@ -1,28 +1,30 @@
-import { SizeMeasurement } from 'types/styles';
-import styles from './Container.module.css';
+import { classNames } from 'utils/constants-styles';
+import { SizeMeasurement, Display, FlexDistribution } from 'types/styles';
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
+  alignItems?: FlexDistribution;
+  display?: Display;
+  justifyContent?: FlexDistribution;
   size?: SizeMeasurement;
 };
 
-export const Container = ({ children, size }: Props) => {
+export const Container = ({
+  children,
+  alignItems,
+  display,
+  justifyContent,
+  size,
+}: Props) => {
   const defaultClassNameWidth = 'width--full';
-  const classNames = {
-    width: {
-      '2xl': 'width--2xl',
-      xl: 'width--xl',
-      lg: 'width--lg',
-      md: 'width--md',
-      sm: 'width--sm',
-    } as { [key in SizeMeasurement]: string },
-  };
 
   return (
     <div
-      className={
-        size ? styles[classNames.width[size]] : styles[defaultClassNameWidth]
-      }
+      className={`${size ? classNames.width[size] : defaultClassNameWidth} ${
+        display ? classNames.display[display] : classNames.display.block
+      } ${justifyContent ? classNames.justifyContent[justifyContent] : ''} ${
+        alignItems ? classNames.alignItems[alignItems] : ''
+      }`}
     >
       {children}
     </div>
