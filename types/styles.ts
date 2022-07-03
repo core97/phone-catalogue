@@ -1,0 +1,1 @@
+export type SizeMeasurement = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
