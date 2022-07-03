@@ -7,12 +7,13 @@ import {
 
 export const classNames = {
   width: {
+    full: 'width--full',
     '2xl': 'width--2xl',
     xl: 'width--xl',
     lg: 'width--lg',
     md: 'width--md',
     sm: 'width--sm',
-  } as { [key in SizeMeasurement]: string },
+  } as { [key in SizeMeasurement | 'full']: string },
   display: {
     block: 'display--block',
     flex: 'display--flex',
