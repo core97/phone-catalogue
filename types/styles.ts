@@ -18,3 +18,5 @@ export type FlexDistribution =
   | 'center'
   | 'space-between'
   | 'space-around';
+
+export type FlexDirection = 'row' | 'column';

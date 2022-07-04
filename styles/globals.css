@@ -93,6 +93,14 @@ a {
   align-items: space-around;
 }
 
+.flex-direction--column {
+  flex-direction: column;
+}
+
+.flex-direction--row {
+  flex-direction: row;
+}
+
 .font-size--sm {
   font-size: 14px;
 }
