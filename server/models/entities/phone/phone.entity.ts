@@ -1,8 +1,8 @@
-import { Manufacter } from 'server/shared/types';
+import { Manufacter, PhoneColor } from 'server/shared/types';
 
 export interface Phone {
   id: string;
-  color: string;
+  color: PhoneColor;
   createdAt: Date;
   description: string;
   imageFileName: string;
