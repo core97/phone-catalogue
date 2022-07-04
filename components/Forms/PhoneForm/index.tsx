@@ -3,6 +3,7 @@ import { InputFile } from 'components/InputFile';
 import { InputText } from 'components/InputText';
 import { Select } from 'components/Select';
 import { Button } from 'components/Button';
+import { useAsync } from 'hooks/useAsync';
 import { uploadFile } from 'services/file';
 import { savePhone } from 'services/phone';
 import { generateId } from 'utils/generators';
@@ -14,26 +15,41 @@ import styles from './PhoneForm.module.css';
 export const PhoneForm = () => {
   const { register, formState, handleSubmit } = useForm<PhoneFormFields>();
 
-  const onSubmit = handleSubmit(async data => {
-    const filesToUpload = Array.from(data.imageFileName);
-    const { files } = await uploadFile(filesToUpload);
+  const onSubmit = useAsync(
+    async (data: PhoneFormFields) => {
+      const filesToUpload = Array.from(data.imageFileName);
+      const { files } = await uploadFile(filesToUpload);
 
-    await savePhone({
-      id: generateId(),
-      color: data.color as PhoneColor,
-      createdAt: new Date(),
-      description: data.description,
-      imageFileName: files[0],
-      manufacturer: data.manufacturer as Manufacter,
-      name: data.name,
-      price: +data.price,
-      processor: data.processor,
-      ram: +data.ram,
-    });
-  });
+      await savePhone({
+        id: generateId(),
+        color: data.color as PhoneColor,
+        createdAt: new Date(),
+        description: data.description,
+        imageFileName: files[0],
+        manufacturer: data.manufacturer as Manufacter,
+        name: data.name,
+        price: +data.price,
+        processor: data.processor,
+        ram: +data.ram,
+      });
+    },
+    {
+      isLoading: {
+        toast: {
+          title: 'Espere, estamos creando el teléfono.',
+        },
+      },
+      success: {
+        toast: {
+          title: 'Enhorabuena, el teléfono se ha creado correctamente.',
+        },
+        redirect: '/',
+      },
+    }
+  );
 
   return (
-    <form onSubmit={onSubmit} className={styles.wrapper}>
+    <form onSubmit={handleSubmit(onSubmit.execute)} className={styles.wrapper}>
       <InputFile
         name="imageFileName"
         register={register}
@@ -113,7 +129,12 @@ export const PhoneForm = () => {
         }}
       />
       <div className={styles['submit-btn']}>
-        <Button as="button" type="submit" isFullWidth>
+        <Button
+          as="button"
+          type="submit"
+          isFullWidth
+          isLoading={onSubmit.status === 'loading'}
+        >
           Crear móvil
         </Button>
       </div>
