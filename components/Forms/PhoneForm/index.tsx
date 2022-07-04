@@ -3,24 +3,33 @@ import { InputFile } from 'components/InputFile';
 import { InputText } from 'components/InputText';
 import { Select } from 'components/Select';
 import { Button } from 'components/Button';
+import { uploadFile } from 'services/file';
+import { savePhone } from 'services/phone';
+import { generateId } from 'utils/generators';
+import { Manufacter, PhoneColor } from 'types/models';
+import { manufacturerOptions, colorsOptions } from './PhoneForm.options';
+import { PhoneFormFields } from './PhoneForm.fields';
 import styles from './PhoneForm.module.css';
-
-type PhoneFormFields = {
-  color: string;
-  description: string;
-  imageFileName: FileList;
-  manufacturer: string;
-  name: string;
-  price: number;
-  processor: string;
-  ram: number;
-};
 
 export const PhoneForm = () => {
   const { register, formState, handleSubmit } = useForm<PhoneFormFields>();
 
-  const onSubmit = handleSubmit(data => {
-    console.log(data);
+  const onSubmit = handleSubmit(async data => {
+    const filesToUpload = Array.from(data.imageFileName);
+    const { files } = await uploadFile(filesToUpload);
+
+    await savePhone({
+      id: generateId(),
+      color: data.color as PhoneColor,
+      createdAt: new Date(),
+      description: data.description,
+      imageFileName: files[0],
+      manufacturer: data.manufacturer as Manufacter,
+      name: data.name,
+      price: +data.price,
+      processor: data.processor,
+      ram: +data.ram,
+    });
   });
 
   return (
@@ -54,7 +63,7 @@ export const PhoneForm = () => {
       <InputText
         name="price"
         label="Precio"
-        type='number'
+        type="number"
         placeholder="499"
         register={register}
         errors={formState.errors}
@@ -65,10 +74,7 @@ export const PhoneForm = () => {
       <Select
         name="color"
         label="Color"
-        options={[
-          { label: 'Negro', value: 'black' },
-          { label: 'Azul oscuro', value: 'dark-blue' },
-        ]}
+        options={colorsOptions}
         register={register}
         errors={formState.errors}
         rules={{
@@ -78,10 +84,7 @@ export const PhoneForm = () => {
       <Select
         name="manufacturer"
         label="Fabricante"
-        options={[
-          { label: 'Apple', value: 'apple' },
-          { label: 'Samsung', value: 'samsung' },
-        ]}
+        options={manufacturerOptions}
         register={register}
         errors={formState.errors}
         rules={{
@@ -101,7 +104,7 @@ export const PhoneForm = () => {
       <InputText
         name="ram"
         label="RAM"
-        type='number'
+        type="number"
         placeholder="8"
         register={register}
         errors={formState.errors}
