@@ -1,7 +1,7 @@
 import { ObjectSchema } from 'joi';
 
 export class Schema<T> {
-  readonly objectSchema: ObjectSchema<T>;
+  private readonly objectSchema: ObjectSchema<T>;
 
   private readonly schemaName: string;
 
