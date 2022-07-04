@@ -8,7 +8,7 @@ const schema = Joi.object<Phone>({
   color: Joi.valid('black', 'gray', 'dark-blue').required(),
   description: Joi.string().required(),
   createdAt: Joi.date().required(),
-  imageFileName: Joi.string().uri().required(),
+  imageFileName: Joi.string().required(),
   manufacturer: Joi.valid('apple', 'samsung', 'xiaomi').required(),
   name: Joi.string().required(),
   price: Joi.number().integer().max(5000).required(),
