@@ -2,6 +2,7 @@ import {
   SizeMeasurement,
   Display,
   FlexDistribution,
+  FlexDirection,
   FontWeight,
 } from 'types/styles';
 
@@ -18,6 +19,10 @@ export const classNames = {
     block: 'display--block',
     flex: 'display--flex',
   } as { [key in Display]: string },
+  flexDirection: {
+    column: 'flex-direction--column',
+    row: 'flex-direction--row',
+  } as { [key in FlexDirection]: string },
   justifyContent: {
     'flex-start': 'justify-content--flex-start',
     'flex-end': 'justify-content--flex-end',
