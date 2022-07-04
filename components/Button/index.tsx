@@ -7,7 +7,7 @@ import styles from './Button.module.css';
 
 type ClickableProps = {
   as: 'button';
-  onClick: () => void;
+  onClick?: (...args: any[]) => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 };
 
@@ -40,7 +40,8 @@ export const Button = (props: Props) => {
       // eslint-disable-next-line react/button-has-type
       type={props.type}
       className={buttonClassNames}
-      onClick={props.onClick}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...(props.onClick && { onClick: props.onClick })}
     >
       <Text as="span" fontWeight="semibold">
         {props.children}
