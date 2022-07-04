@@ -32,13 +32,13 @@ export class Repository<T extends { id: string }> {
     return this.collection;
   }
 
-  async exists(id: string): Promise<boolean> {
+  protected async exists(id: string): Promise<boolean> {
     const collection = await this.getCollection();
     const doc = await collection.findOne<T>({ _id: this.toObjectId(id) });
     return !!doc;
   }
 
-  async save(aggregateRoot: T): Promise<void> {
+  protected async save(aggregateRoot: T): Promise<void> {
     const collection = await this.getCollection();
     let doc: WithId<T> | undefined;
 
@@ -65,7 +65,7 @@ export class Repository<T extends { id: string }> {
     }
   }
 
-  async findOne(filter: Filter<T>): Promise<T | null> {
+  protected async findOne(filter: Filter<T>): Promise<T | null> {
     const collection = await this.getCollection();
     const docWithId = await collection.findOne<WithId<T>>(filter);
 
@@ -76,7 +76,7 @@ export class Repository<T extends { id: string }> {
     return { ...rest, id: _id.toString() } as unknown as T;
   }
 
-  async findById(id: string): Promise<T | null> {
+  protected async findById(id: string): Promise<T | null> {
     const collection = await this.getCollection();
     const docWithId = await collection.findOne<WithId<T>>({
       _id: this.toObjectId(id),
@@ -89,7 +89,7 @@ export class Repository<T extends { id: string }> {
     return { ...rest, id: _id.toString() } as unknown as T;
   }
 
-  async find(
+  protected async find(
     filter: Filter<T>,
     options?: FindOptions<Document> | undefined
   ): Promise<FindCursor<Omit<WithId<T>, 'id'>>> {
@@ -102,12 +102,12 @@ export class Repository<T extends { id: string }> {
     return findCursor;
   }
 
-  async deleteOne(filter: Filter<T>): Promise<void> {
+  protected async deleteOne(filter: Filter<T>): Promise<void> {
     const collection = await this.getCollection();
     await collection.deleteOne(filter);
   }
 
-  toObjectId(id?: string): ObjectId {
+  protected toObjectId(id?: string): ObjectId {
     return new ObjectId(id);
   }
 }

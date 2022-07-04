@@ -18,6 +18,16 @@ class PhoneRepository extends Repository<Phone> {
 
     return PhoneRepository.instance;
   }
+
+  async findPhones(): Promise<Phone[]> {
+    const phonesCursor = await this.find({});
+    const phones = await phonesCursor.toArray();
+    return phones.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }));
+  }
+
+  async savePhone(phone: Phone) {
+    await this.save(phone);
+  }
 }
 
 export const phoneRepository = PhoneRepository.getInstance();

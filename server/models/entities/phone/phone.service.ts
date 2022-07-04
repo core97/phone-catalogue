@@ -13,13 +13,12 @@ class PhoneService {
   }
 
   async getPhones(): Promise<Phone[]> {
-    const phonesCursor = await phoneRepository.find({});
-    const phones = await phonesCursor.toArray();
-    return phones.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }));
+    const phones = await phoneRepository.findPhones();
+    return phones;
   }
 
   async savePhone(phone: Phone) {
-    await phoneRepository.save(phone);
+    await phoneRepository.savePhone(phone);
   }
 }
 
