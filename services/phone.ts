@@ -17,3 +17,9 @@ export const getPhone = async (phoneId: string): Promise<Phone> => {
   const res = await httpInstance.get(endpoint);
   return res.data;
 }
+
+export const deletePhone = async (phoneId: string): Promise<void> => {
+  const endpoint = `/phones/${phoneId}`;
+  const res = await httpInstance.delete(endpoint);
+  return res.data;
+}
