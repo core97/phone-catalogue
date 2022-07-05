@@ -1,15 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
 import { getPhonesCtrl } from 'server/controllers/phone/get-phones.controller';
 import { savePhoneCtrl } from 'server/controllers/phone/save-phone.controller';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'PUT') {
-    return savePhoneCtrl.execute(req, res);
-  }
+const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
-  if (req.method === 'GET') {
-    return getPhonesCtrl.execute(req, res);
-  }
+handler.get(async (req, res) => getPhonesCtrl.execute(req, res));
 
-  return res.status(405).end();
-}
+handler.put(async (req, res) => savePhoneCtrl.execute(req, res));
+
+export default handler;
