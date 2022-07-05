@@ -2,18 +2,17 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Joi from 'joi';
 import { Controller } from 'server/shared/controller';
 import { phoneService } from 'server/models/entities/phone/phone.service';
-import { Phone } from 'server/models/entities/phone/phone.entity';
 import { regexValidators } from 'utils/regex';
 
-class GetPhoneController extends Controller {
-  private static instance: GetPhoneController;
+class DeletePhoneController extends Controller {
+  private static instance: DeletePhoneController;
 
-  public static getInstance(): GetPhoneController {
-    if (!GetPhoneController.instance) {
-      GetPhoneController.instance = new GetPhoneController();
+  public static getInstance(): DeletePhoneController {
+    if (!DeletePhoneController.instance) {
+      DeletePhoneController.instance = new DeletePhoneController();
     }
 
-    return GetPhoneController.instance;
+    return DeletePhoneController.instance;
   }
 
   protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
@@ -22,19 +21,15 @@ class GetPhoneController extends Controller {
     });
 
     const { error, warning } = queryValidator.validate(req.query);
-    
+
     if (error || warning) {
       return this.invalidParams(res);
     }
 
-    const phone = await phoneService.getPhone(req.query.id as string);
+    await phoneService.deletePhone(req.query.id as string);
 
-    if (!phone) {
-      return this.notFound(res);
-    }
-
-    return this.ok<Phone>(res, phone);
+    return this.ok(res);
   }
 }
 
-export const getPhoneCtrl = GetPhoneController.getInstance();
+export const deletePhoneCtrl = DeletePhoneController.getInstance();

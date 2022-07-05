@@ -25,6 +25,10 @@ class PhoneService {
   async savePhone(phone: Phone) {
     await phoneRepository.savePhone(phone);
   }
+
+  async deletePhone(id: string): Promise<void> {
+    await phoneRepository.deletePhoneById(id);
+  }
 }
 
 export const phoneService = PhoneService.getInstance(); 

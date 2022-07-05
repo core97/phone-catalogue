@@ -33,6 +33,12 @@ class PhoneRepository extends Repository<Phone> {
   async savePhone(phone: Phone) {
     await this.save(phone);
   }
+
+  async deletePhoneById(phoneId: string): Promise<void> {
+    await this.deleteOne({
+      _id: this.toObjectId(phoneId),
+    });
+  }
 }
 
 export const phoneRepository = PhoneRepository.getInstance();
