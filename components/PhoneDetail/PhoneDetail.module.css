@@ -1,0 +1,27 @@
+.wrapper {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper figure {
+  width: 400px;
+}
+
+.wrapper image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.wrapper header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper main {
+  width: 100%;
+}
