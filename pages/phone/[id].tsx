@@ -11,26 +11,24 @@ const PhoneDetailPage: NextPage = () => {
 
   return (
     <Container size="lg">
-      <Container size="xl">
-        <AsyncComponent
-          isLoading={phoneQuery.isLoading}
-          error={phoneQuery.error}
-          data={phoneQuery.data}
-          render={data => (
-            <PhoneDetail
-              color={data.color}
-              description={data.description}
-              id={data.id}
-              imageFileName={data.imageFileName}
-              manufacturer={data.manufacturer}
-              name={data.name}
-              price={data.price}
-              processor={data.processor}
-              ram={data.ram}
-            />
-          )}
-        />
-      </Container>
+      <AsyncComponent
+        isLoading={phoneQuery.isLoading}
+        error={phoneQuery.error}
+        data={phoneQuery.data}
+        render={data => (
+          <PhoneDetail
+            color={data.color}
+            description={data.description}
+            id={data.id}
+            imageFileName={data.imageFileName}
+            manufacturer={data.manufacturer}
+            name={data.name}
+            price={data.price}
+            processor={data.processor}
+            ram={data.ram}
+          />
+        )}
+      />
     </Container>
   );
 };
