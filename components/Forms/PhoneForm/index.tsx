@@ -4,8 +4,8 @@ import { InputText } from 'components/InputText';
 import { Select } from 'components/Select';
 import { Button } from 'components/Button';
 import { useAsync } from 'hooks/useAsync';
+import { useSavePhoneMutation } from 'hooks/mutatations';
 import { uploadFile } from 'services/file';
-import { savePhone } from 'services/phone';
 import { generateId } from 'utils/generators';
 import { Manufacter, PhoneColor } from 'types/models';
 import { manufacturerOptions, colorsOptions } from './PhoneForm.options';
@@ -14,13 +14,14 @@ import styles from './PhoneForm.module.css';
 
 export const PhoneForm = () => {
   const { register, formState, handleSubmit } = useForm<PhoneFormFields>();
+  const phoneMutation = useSavePhoneMutation();
 
   const onSubmit = useAsync(
     async (data: PhoneFormFields) => {
       const filesToUpload = Array.from(data.imageFileName);
       const { files } = await uploadFile(filesToUpload);
 
-      await savePhone({
+      await phoneMutation.mutateAsync({
         id: generateId(),
         color: data.color as PhoneColor,
         createdAt: new Date(),
