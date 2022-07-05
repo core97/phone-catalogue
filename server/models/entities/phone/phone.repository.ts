@@ -25,6 +25,11 @@ class PhoneRepository extends Repository<Phone> {
     return phones.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }));
   }
 
+  async findPhoneById(id: string): Promise<Phone | null> {
+    const phone = await this.findById(id);
+    return phone;
+  }
+
   async savePhone(phone: Phone) {
     await this.save(phone);
   }

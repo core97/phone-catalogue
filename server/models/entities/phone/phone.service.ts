@@ -17,6 +17,11 @@ class PhoneService {
     return phones;
   }
 
+  async getPhone(id: string): Promise<Phone | null> {
+    const phone = await phoneRepository.findPhoneById(id);
+    return phone;
+  }
+
   async savePhone(phone: Phone) {
     await phoneRepository.savePhone(phone);
   }

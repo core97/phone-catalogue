@@ -11,3 +11,9 @@ export const getPhones = async (): Promise<Phone[]> => {
   const res = await httpInstance.get(endpoint);
   return res.data;
 };
+
+export const getPhone = async (phoneId: string): Promise<Phone> => {
+  const endpoint = `/phones/${phoneId}`;
+  const res = await httpInstance.get(endpoint);
+  return res.data;
+}
