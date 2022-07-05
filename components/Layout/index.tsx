@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Container } from 'components/Container';
 import { Text } from 'components/Text';
 import { Button } from 'components/Button';
@@ -16,8 +17,15 @@ export const Layout = ({ children }: Props) => (
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text as='h1' size="lg">Catálogo</Text>
-        <Button as='link' link='/phone/creation'>
+        <Link href="/">
+          <a>
+            <Text as="h1" size="lg">
+              Catálogo
+            </Text>
+          </a>
+        </Link>
+
+        <Button as="link" link="/phone/creation">
           Crear teléfono
         </Button>
       </Container>
