@@ -1,0 +1,17 @@
+.card-wrapper {
+  width: 100%;
+  cursor: pointer;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: auto;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
