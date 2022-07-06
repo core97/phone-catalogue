@@ -1,20 +1,9 @@
-import {
-  RegisterOptions,
-  UseFormRegister,
-  Path,
-  DeepMap,
-  FieldError,
-  FieldValues,
-} from 'react-hook-form';
-import { SelectOption } from 'types/components';
+import { SelectOption, BaseValidatedFormElement } from 'types/components';
 
-export interface Props<TFormValues> {
-  name: Path<TFormValues>;
+export interface Props<TFormValues>
+  extends BaseValidatedFormElement<TFormValues> {
   options: SelectOption[];
   defaultValue?: string;
   disabled?: boolean;
   label?: string;
-  rules?: RegisterOptions;
-  register?: UseFormRegister<TFormValues>;
-  errors?: DeepMap<FieldValues, FieldError>;
-};
+}
