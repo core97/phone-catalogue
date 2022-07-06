@@ -3,10 +3,8 @@ import { Text } from 'components/Text';
 import { Button } from 'components/Button';
 import { useDeletePhoneMutation } from 'hooks/mutatations';
 import { useAsync } from 'hooks/useAsync';
-import { Phone } from 'types/models';
+import { Props } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
-
-type Props = Omit<Phone, 'createdAt'>;
 
 export const PhoneDetail = ({
   color,

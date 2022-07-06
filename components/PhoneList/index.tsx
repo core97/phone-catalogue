@@ -1,10 +1,9 @@
 import { memo } from 'react';
-import { Props as PhoneCardProps, PhoneCard } from 'components/PhoneCard';
+import { PhoneCard } from 'components/PhoneCard';
+import { Props } from './PhoneList.interface';
 import styles from './PhoneList.module.css';
 
-type Props = {
-  list: PhoneCardProps[];
-};
+
 
 export const PhoneList = memo(({ list }: Props) => (
   <ul className={styles.list}>

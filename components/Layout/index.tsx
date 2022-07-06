@@ -2,11 +2,8 @@ import Link from 'next/link';
 import { Container } from 'components/Container';
 import { Text } from 'components/Text';
 import { Button } from 'components/Button';
+import { Props } from './Layout.interface';
 import styles from './Layout.module.css';
-
-type Props = {
-  children: React.ReactNode | React.ReactNode[];
-};
 
 export const Layout = ({ children }: Props) => (
   <div className={styles.wrapper}>

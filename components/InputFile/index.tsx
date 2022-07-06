@@ -1,20 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  RegisterOptions,
-  UseFormRegister,
-  Path,
-  DeepMap,
-  FieldError,
-  FieldValues,
-} from 'react-hook-form';
-
-export type Props<TFormValues> = {
-  name: Path<TFormValues>;
-  disabled?: boolean;
-  rules?: RegisterOptions;
-  register?: UseFormRegister<TFormValues>;
-  errors?: DeepMap<FieldValues, FieldError>;
-};
+import { Props } from './InputFile.interface';
 
 export const InputFile = <TFormValues extends Record<string, unknown>>({
   name,

@@ -1,24 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  RegisterOptions,
-  UseFormRegister,
-  Path,
-  DeepMap,
-  FieldError,
-  FieldValues,
-} from 'react-hook-form';
-import { SelectOption } from 'types/components';
-
-type Props<TFormValues> = {
-  name: Path<TFormValues>;
-  options: SelectOption[];
-  defaultValue?: string;
-  disabled?: boolean;
-  label?: string;
-  rules?: RegisterOptions;
-  register?: UseFormRegister<TFormValues>;
-  errors?: DeepMap<FieldValues, FieldError>;
-};
+import { Props } from './Select.interface';
 
 export const Select = <TFormValues extends Record<string, unknown>>({
   name,

@@ -1,26 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import Link from 'next/link';
 import { Text } from 'components/Text';
-import { ButtonHTMLAttributes } from 'react';
 import { classNames } from 'utils/constants-styles';
+import { ClickableProps, LinkProps } from './Button.interface';
 import styles from './Button.module.css';
 
-type ClickableProps = {
-  as: 'button';
-  disabled?: boolean;
-  isLoading?: boolean;
-  onClick?: (...args: any[]) => void;
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-};
-
-type LinkProps = { as: 'link'; link: string };
-
-type Props = {
-  children: string;
-  isFullWidth?: boolean;
-} & (ClickableProps | LinkProps);
-
-export const Button = (props: Props) => {
+export const Button = (props: ClickableProps | LinkProps) => {
   const buttonClassNames = `${styles.button} ${
     props.isFullWidth ? classNames.width.full : ''
   }`;

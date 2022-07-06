@@ -1,15 +1,6 @@
 import { Text } from 'components/Text';
+import { Props } from './AsynComponent.interface';
 import styles from './AsyncComponent.module.css';
-
-type Props<T> = {
-  data: T;
-  error: unknown;
-  isLoading: boolean;
-  render: (successData: NonNullable<T>) => void;
-  errorMessage?: string;
-  loadingMessage?: string;
-  noDataMessage?: string;
-};
 
 export const AsyncComponent = <T extends unknown>({
   data,

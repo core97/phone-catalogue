@@ -1,20 +1,6 @@
 import { classNames } from 'utils/constants-styles';
-import {
-  SizeMeasurement,
-  Display,
-  FlexDistribution,
-  FlexDirection,
-} from 'types/styles';
+import { Props } from './Container.interface';
 import styles from './Container.module.css';
-
-type Props = {
-  children: React.ReactNode | React.ReactNode[];
-  alignItems?: FlexDistribution;
-  display?: Display;
-  flexDirection?: FlexDirection;
-  justifyContent?: FlexDistribution;
-  size?: SizeMeasurement;
-};
 
 export const Container = ({
   children,
@@ -24,7 +10,7 @@ export const Container = ({
   justifyContent,
   size,
 }: Props) => {
-  const defaultClassNameWidth = 'width--full';
+  const defaultClassNameWidth = classNames.width.full;
 
   return (
     <div
