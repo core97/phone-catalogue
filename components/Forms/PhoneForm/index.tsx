@@ -4,7 +4,7 @@ import { InputText } from 'components/InputText';
 import { Select } from 'components/Select';
 import { Button } from 'components/Button';
 import { useAsync } from 'hooks/useAsync';
-import { useSavePhoneMutation } from 'hooks/mutatations';
+import { useSavePhoneMutation } from 'hooks/mutations';
 import { uploadFile } from 'services/file';
 import { generateId } from 'utils/generators';
 import { Manufacter, PhoneColor } from 'types/models';

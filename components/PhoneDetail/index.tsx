@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Text } from 'components/Text';
 import { Button } from 'components/Button';
-import { useDeletePhoneMutation } from 'hooks/mutatations';
+import { useDeletePhoneMutation } from 'hooks/mutations';
 import { useAsync } from 'hooks/useAsync';
 import { Props } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
