@@ -1,22 +1,11 @@
+import { classNames } from 'utils/constants-styles';
+
 export type SizeMeasurement = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-export type FontWeight =
-  | 'thin'
-  | 'light'
-  | 'normal'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extrabold'
-  | 'black';
+export type FontWeight = keyof typeof classNames.fontWeight;
 
-export type Display = 'block' | 'flex';
+export type Display = keyof typeof classNames.display;
 
-export type FlexDistribution =
-  | 'flex-start'
-  | 'flex-end'
-  | 'center'
-  | 'space-between'
-  | 'space-around';
+export type FlexDistribution = keyof typeof classNames.justifyContent;
 
-export type FlexDirection = 'row' | 'column';
+export type FlexDirection = keyof typeof classNames.flexDirection;
