@@ -1,4 +1,4 @@
-import { classNames } from 'utils/constants-styles';
+import { classNames } from 'utils/styles-constants';
 import { Props } from './Container.interface';
 import styles from './Container.module.css';
 

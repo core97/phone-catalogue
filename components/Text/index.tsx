@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames } from 'utils/constants-styles';
+import { classNames } from 'utils/styles-constants';
 import { Props } from './Text.interface';
 
 export const Text = ({

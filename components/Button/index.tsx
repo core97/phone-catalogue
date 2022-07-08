@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Text } from 'components/Text';
 import { useTranslation } from 'hooks/useTranslation';
-import { classNames } from 'utils/constants-styles';
+import { classNames } from 'utils/styles-constants';
 import { ClickableProps, LinkProps } from './Button.interface';
 import styles from './Button.module.css';
 

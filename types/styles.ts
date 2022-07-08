@@ -1,4 +1,4 @@
-import { classNames } from 'utils/constants-styles';
+import { classNames } from 'utils/styles-constants';
 
 export type SizeMeasurement = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
