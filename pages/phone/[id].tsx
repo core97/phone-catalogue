@@ -6,8 +6,10 @@ import { PhoneDetail } from 'components/PhoneDetail';
 import { usePhoneQuery } from 'hooks/queries';
 
 const PhoneDetailPage: NextPage = () => {
-  const router = useRouter();
-  const phoneQuery = usePhoneQuery(router.query.id as string);
+  const { query } = useRouter();
+  const phoneQuery = usePhoneQuery(
+    typeof query.id === 'string' ? query.id : undefined
+  );
 
   return (
     <Container size="lg">

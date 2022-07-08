@@ -4,6 +4,7 @@ import { Button } from 'components/Button';
 import { useDeletePhoneMutation } from 'hooks/mutations';
 import { useAsync } from 'hooks/useAsync';
 import { useTranslation } from 'hooks/useTranslation';
+import { Routes } from 'types/routes';
 import { Props } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
 
@@ -35,7 +36,7 @@ export const PhoneDetail = ({
         toast: {
           title: translation.phone.messages.deletionSuccess,
         },
-        redirect: '/',
+        redirect: Routes.HOME,
       },
     }
   );

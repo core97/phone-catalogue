@@ -9,6 +9,7 @@ import { useTranslation } from 'hooks/useTranslation';
 import { uploadFile } from 'services/file';
 import { generateId } from 'utils/generators';
 import { Manufacter, PhoneColor } from 'types/models';
+import { Routes } from 'types/routes';
 import { manufacturerOptions, colorsOptions } from './PhoneForm.options';
 import { PhoneFormFields } from './PhoneForm.fields';
 import styles from './PhoneForm.module.css';
@@ -48,7 +49,7 @@ export const PhoneForm = () => {
         toast: {
           title: formTranslations.successCreation,
         },
-        redirect: '/',
+        redirect: Routes.HOME,
       },
     }
   );
