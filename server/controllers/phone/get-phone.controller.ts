@@ -1,19 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Joi from 'joi';
+import { inject, injectable } from 'inversify';
 import { Controller } from 'server/shared/controller';
-import { phoneService } from 'server/models/entities/phone/phone.service';
+import { PhoneService } from 'server/models/entities/phone/phone.service';
 import { Phone } from 'server/models/entities/phone/phone.entity';
+import { TYPES } from 'server/shared/container-types';
 import { regexValidators } from 'utils/regex';
 
-class GetPhoneController extends Controller {
-  private static instance: GetPhoneController;
-
-  public static getInstance(): GetPhoneController {
-    if (!GetPhoneController.instance) {
-      GetPhoneController.instance = new GetPhoneController();
-    }
-
-    return GetPhoneController.instance;
+@injectable()
+export class GetPhoneController extends Controller {
+  constructor(@inject(TYPES.PhoneService) private phoneService: PhoneService) {
+    super();
   }
 
   protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
@@ -27,7 +24,7 @@ class GetPhoneController extends Controller {
       return this.invalidParams(res);
     }
 
-    const phone = await phoneService.getPhone(req.query.id as string);
+    const phone = await this.phoneService.getPhone(req.query.id as string);
 
     if (!phone) {
       return this.notFound(res);
@@ -36,5 +33,3 @@ class GetPhoneController extends Controller {
     return this.ok<Phone>(res, phone);
   }
 }
-
-export const getPhoneCtrl = GetPhoneController.getInstance();

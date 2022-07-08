@@ -1,3 +1,4 @@
+import { injectable, unmanaged } from 'inversify';
 import {
   ObjectId,
   MongoClient,
@@ -11,12 +12,16 @@ import {
 import { MongoDatabase } from 'server/modules/mongo-database';
 import { Schema } from 'server/shared/schema';
 
+@injectable()
 export class Repository<T extends { id: string }> {
   private collection: Collection | undefined;
 
   private connection: MongoClient | undefined;
 
-  constructor(private collectionName: string, private schema: Schema<T>) {}
+  constructor(
+    @unmanaged() private collectionName: string,
+    @unmanaged() private schema: Schema<T>
+  ) {}
 
   async getCollection(): Promise<Collection> {
     const mongoDB = MongoDatabase.getInstance();
@@ -50,9 +55,7 @@ export class Repository<T extends { id: string }> {
       };
     } catch (error) {
       throw Error(
-        `[repository]: Aggregate root from ${
-          this.collectionName
-        } collection is invalid when the document is created or updated.\n${error}}`
+        `[repository]: Aggregate root from ${this.collectionName} collection is invalid when the document is created or updated.\n${error}}`
       );
     }
 
@@ -94,10 +97,7 @@ export class Repository<T extends { id: string }> {
     options?: FindOptions<Document> | undefined
   ): Promise<FindCursor<Omit<WithId<T>, 'id'>>> {
     const collection = await this.getCollection();
-    const findCursor = collection.find<Omit<WithId<T>, 'id'>>(
-      filter,
-      options
-    );
+    const findCursor = collection.find<Omit<WithId<T>, 'id'>>(filter, options);
 
     return findCursor;
   }

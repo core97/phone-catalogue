@@ -1,23 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { inject, injectable } from 'inversify';
 import { Controller } from 'server/shared/controller';
-import { phoneService } from 'server/models/entities/phone/phone.service';
+import { PhoneService } from 'server/models/entities/phone/phone.service';
 import { Phone } from 'server/models/entities/phone/phone.entity';
+import { TYPES } from 'server/shared/container-types';
 
-class GetPhonesController extends Controller {
-  private static instance: GetPhonesController;
-
-  public static getInstance(): GetPhonesController {
-    if (!GetPhonesController.instance) {
-      GetPhonesController.instance = new GetPhonesController();
-    }
-
-    return GetPhonesController.instance;
+@injectable()
+export class GetPhonesController extends Controller {
+  constructor(@inject(TYPES.PhoneService) private phoneService: PhoneService) {
+    super();
   }
 
   protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
-    const phones = await phoneService.getPhones();
+    const phones = await this.phoneService.getPhones();
     return this.ok<Phone[]>(res, phones);
   }
 }
-
-export const getPhonesCtrl = GetPhonesController.getInstance();

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { getPhoneCtrl } from 'server/controllers/phone/get-phone.controller';
-import { deletePhoneCtrl } from 'server/controllers/phone/delete-phone.controller';
+import 'reflect-metadata';
+import { deletePhoneCtrl, getPhoneCtrl } from 'server/controllers/phone';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 

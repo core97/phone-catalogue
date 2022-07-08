@@ -1,11 +1,16 @@
+import { injectable, unmanaged } from 'inversify';
 import { ObjectSchema } from 'joi';
 
+@injectable()
 export class Schema<T> {
   private readonly objectSchema: ObjectSchema<T>;
 
   private readonly schemaName: string;
 
-  constructor(objectSchema: ObjectSchema<T>, schemaName: string) {
+  constructor(
+    @unmanaged() objectSchema: ObjectSchema<T>,
+    @unmanaged() schemaName: string
+  ) {
     this.objectSchema = objectSchema;
     this.schemaName = schemaName;
   }

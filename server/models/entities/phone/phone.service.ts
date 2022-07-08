@@ -1,34 +1,29 @@
-import { phoneRepository } from './phone.repository';
+import { injectable, inject } from 'inversify';
+import { PhoneRepository } from 'server/models/entities/phone/phone.repository';
+import { TYPES } from 'server/shared/container-types';
 import { Phone } from './phone.entity';
 
-class PhoneService {
-  private static instance: PhoneService;
-
-  public static getInstance(): PhoneService {
-    if (!PhoneService.instance) {
-      PhoneService.instance = new PhoneService();
-    }
-
-    return PhoneService.instance;
-  }
+@injectable()
+export class PhoneService {
+  constructor(
+    @inject(TYPES.PhoneRepository) private phoneRepository: PhoneRepository
+  ) {}
 
   async getPhones(): Promise<Phone[]> {
-    const phones = await phoneRepository.findPhones();
+    const phones = await this.phoneRepository.findPhones();
     return phones;
   }
 
   async getPhone(id: string): Promise<Phone | null> {
-    const phone = await phoneRepository.findPhoneById(id);
+    const phone = await this.phoneRepository.findPhoneById(id);
     return phone;
   }
 
   async savePhone(phone: Phone) {
-    await phoneRepository.savePhone(phone);
+    await this.phoneRepository.savePhone(phone);
   }
 
   async deletePhone(id: string): Promise<void> {
-    await phoneRepository.deletePhoneById(id);
+    await this.phoneRepository.deletePhoneById(id);
   }
 }
-
-export const phoneService = PhoneService.getInstance(); 

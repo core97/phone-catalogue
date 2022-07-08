@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import Joi from 'joi';
 import { Schema } from 'server/shared/schema';
 import { regexValidators } from 'utils/regex';
@@ -16,4 +17,9 @@ const schema = Joi.object<Phone>({
   ram: Joi.number().integer().max(64).required(),
 });
 
-export const phoneSchema = new Schema(schema, 'phone-schema');
+@injectable()
+export class PhoneSchema extends Schema<Phone> {
+  constructor() {
+    super(schema, 'phone-schema');
+  }
+}

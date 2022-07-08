@@ -1,22 +1,14 @@
+import { injectable, inject } from 'inversify';
 import { Repository } from 'server/shared/repository';
-import { Schema } from 'server/shared/schema';
 import { COLLECTION_NAME } from 'server/shared/constants';
+import { TYPES } from 'server/shared/container-types';
 import { Phone } from './phone.entity';
-import { phoneSchema } from './phone.schema';
+import { PhoneSchema } from './phone.schema';
 
-class PhoneRepository extends Repository<Phone> {
-  private static instance: PhoneRepository;
-
-  constructor(schema: Schema<Phone>) {
+@injectable()
+export class PhoneRepository extends Repository<Phone> {
+  constructor(@inject(TYPES.PhoneSchema) schema: PhoneSchema) {
     super(COLLECTION_NAME.PHONE, schema);
-  }
-
-  public static getInstance(): PhoneRepository {
-    if (!PhoneRepository.instance) {
-      PhoneRepository.instance = new PhoneRepository(phoneSchema);
-    }
-
-    return PhoneRepository.instance;
   }
 
   async findPhones(): Promise<Phone[]> {
@@ -40,5 +32,3 @@ class PhoneRepository extends Repository<Phone> {
     });
   }
 }
-
-export const phoneRepository = PhoneRepository.getInstance();

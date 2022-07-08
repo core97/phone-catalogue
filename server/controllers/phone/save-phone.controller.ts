@@ -1,29 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { inject, injectable } from 'inversify';
 import { Controller } from 'server/shared/controller';
-import { phoneService } from 'server/models/entities/phone/phone.service';
-import { phoneSchema } from 'server/models/entities/phone/phone.schema';
+import { PhoneService } from 'server/models/entities/phone/phone.service';
+import { PhoneSchema } from 'server/models/entities/phone/phone.schema';
+import { TYPES } from 'server/shared/container-types';
 
-class SavePhoneController extends Controller {
-  private static instance: SavePhoneController;
-
-  public static getInstance(): SavePhoneController {
-    if (!SavePhoneController.instance) {
-      SavePhoneController.instance = new SavePhoneController();
-    }
-
-    return SavePhoneController.instance;
+@injectable()
+export class SavePhoneController extends Controller {
+  constructor(
+    @inject(TYPES.PhoneService) private phoneService: PhoneService,
+    @inject(TYPES.PhoneSchema) private phoneSchema: PhoneSchema
+  ) {
+    super();
   }
 
   protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
     try {
-      phoneSchema.getValidatedValue(req.body);
+      this.phoneSchema.getValidatedValue(req.body);
     } catch (error) {
       return this.invalidParams(res);
     }
 
-    await phoneService.savePhone(req.body);
+    await this.phoneService.savePhone(req.body);
     return this.created(res);
   }
 }
-
-export const savePhoneCtrl = SavePhoneController.getInstance();

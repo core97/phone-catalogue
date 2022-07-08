@@ -1,5 +1,7 @@
+import { injectable } from 'inversify';
 import type { NextApiResponse, NextApiRequest } from 'next';
 
+@injectable()
 export abstract class Controller {
   protected abstract executeImpl(
     req: NextApiRequest,

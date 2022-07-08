@@ -1,18 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { injectable, inject } from 'inversify';
 import Joi from 'joi';
 import { Controller } from 'server/shared/controller';
-import { phoneService } from 'server/models/entities/phone/phone.service';
+import { PhoneService } from 'server/models/entities/phone/phone.service';
+import { TYPES } from 'server/shared/container-types';
 import { regexValidators } from 'utils/regex';
 
-class DeletePhoneController extends Controller {
-  private static instance: DeletePhoneController;
-
-  public static getInstance(): DeletePhoneController {
-    if (!DeletePhoneController.instance) {
-      DeletePhoneController.instance = new DeletePhoneController();
-    }
-
-    return DeletePhoneController.instance;
+@injectable()
+export class DeletePhoneController extends Controller {
+  constructor(@inject(TYPES.PhoneService) private phoneService: PhoneService) {
+    super();
   }
 
   protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
@@ -26,10 +23,8 @@ class DeletePhoneController extends Controller {
       return this.invalidParams(res);
     }
 
-    await phoneService.deletePhone(req.query.id as string);
+    await this.phoneService.deletePhone(req.query.id as string);
 
     return this.ok(res);
   }
 }
-
-export const deletePhoneCtrl = DeletePhoneController.getInstance();
