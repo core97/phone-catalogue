@@ -18,3 +18,11 @@ export interface BaseValidatedFormElement<TFormValues> {
   register?: UseFormRegister<TFormValues>;
   errors?: DeepMap<FieldValues, FieldError>;
 }
+
+export interface AsyncAction {
+  action?: () => void;
+  redirect?: string;
+  toast?: {
+    title: string;
+  };
+}

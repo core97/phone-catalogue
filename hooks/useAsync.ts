@@ -2,27 +2,19 @@ import { useRouter } from 'next/router';
 import { useCallback, useState, useRef } from 'react';
 import { toast, Id } from 'react-toastify';
 import { useTranslation } from 'hooks/useTranslation';
-
-type OptionConfiguration = {
-  action?: () => void;
-  redirect?: string;
-  toast?: {
-    title: string;
-  };
-};
+import { Status } from 'types/common';
+import { AsyncAction } from 'types/components';
 
 export const useAsync = <T = void, P = unknown>(
   asyncFunction: (args: P) => Promise<T>,
   options: {
-    success?: OptionConfiguration;
-    isLoading?: Omit<OptionConfiguration, 'redirect'>;
-    error?: OptionConfiguration;
-    finally?: OptionConfiguration;
+    success?: AsyncAction;
+    isLoading?: Omit<AsyncAction, 'redirect'>;
+    error?: AsyncAction;
+    finally?: AsyncAction;
   }
 ) => {
-  const [status, setStatus] = useState<
-    'idle' | 'loading' | 'success' | 'error'
-  >('idle');
+  const [status, setStatus] = useState<Status>('idle');
   const [value, setValue] = useState<T | null>(null);
   const [error, setError] = useState(null);
   const router = useRouter();
