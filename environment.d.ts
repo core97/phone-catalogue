@@ -6,6 +6,8 @@ declare global {
       AWS_MY_BUCKET_REGION: string;
       AWS_MY_ACCESS_KEY: string;
       AWS_MY_SECRET_KEY: string;
+      NEXT_PUBLIC_DOMAIN: string;
+      NEXT_PUBLIC_BASE_URL_API: string;
     }
   }
 }
