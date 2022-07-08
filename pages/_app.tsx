@@ -7,6 +7,7 @@ import { Layout } from 'components/Layout';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/globals.css';
 import 'styles/theme.css';
+import 'styles/colors.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(
