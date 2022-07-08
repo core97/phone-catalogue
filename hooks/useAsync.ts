@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useCallback, useState, useRef } from 'react';
 import { toast, Id } from 'react-toastify';
+import { useTranslation } from 'hooks/useTranslation';
 
 type OptionConfiguration = {
   action?: () => void;
@@ -17,12 +18,6 @@ export const useAsync = <T = void, P = unknown>(
     isLoading?: Omit<OptionConfiguration, 'redirect'>;
     error?: OptionConfiguration;
     finally?: OptionConfiguration;
-  } = {
-    error: {
-      toast: {
-        title: 'Lo sentimos, ha ocurrido un error.',
-      },
-    },
   }
 ) => {
   const [status, setStatus] = useState<
@@ -32,6 +27,7 @@ export const useAsync = <T = void, P = unknown>(
   const [error, setError] = useState(null);
   const router = useRouter();
   const toastLoadingId = useRef<Id | null>(null);
+  const { translation } = useTranslation();
 
   const execute = useCallback(
     (args: P) => {
@@ -62,7 +58,9 @@ export const useAsync = <T = void, P = unknown>(
           setError(err);
           setStatus('error');
 
-          toast.error(options.error?.toast?.title || 'Ha ocurrido un error');
+          toast.error(
+            options.error?.toast?.title || translation.globalMsg.error
+          );
 
           if (options.error?.action) options.error.action();
 
@@ -86,6 +84,7 @@ export const useAsync = <T = void, P = unknown>(
       options.isLoading,
       options.success,
       router,
+      translation.globalMsg.error,
     ]
   );
 

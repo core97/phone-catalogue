@@ -5,6 +5,7 @@ import { Select } from 'components/Select';
 import { Button } from 'components/Button';
 import { useAsync } from 'hooks/useAsync';
 import { useSavePhoneMutation } from 'hooks/mutations';
+import { useTranslation } from 'hooks/useTranslation';
 import { uploadFile } from 'services/file';
 import { generateId } from 'utils/generators';
 import { Manufacter, PhoneColor } from 'types/models';
@@ -15,6 +16,9 @@ import styles from './PhoneForm.module.css';
 export const PhoneForm = () => {
   const { register, formState, handleSubmit } = useForm<PhoneFormFields>();
   const phoneMutation = useSavePhoneMutation();
+  const { translation } = useTranslation();
+  const { phone: formTranslations } = translation.forms;
+  const { fields: fieldsTranslations } = translation.phone;
 
   const onSubmit = useAsync(
     async (data: PhoneFormFields) => {
@@ -37,12 +41,12 @@ export const PhoneForm = () => {
     {
       isLoading: {
         toast: {
-          title: 'Espere, estamos creando el teléfono.',
+          title: formTranslations.loadingCreation,
         },
       },
       success: {
         toast: {
-          title: 'Enhorabuena, el teléfono se ha creado correctamente.',
+          title: formTranslations.successCreation,
         },
         redirect: '/',
       },
@@ -59,8 +63,8 @@ export const PhoneForm = () => {
       />
       <InputText
         name="name"
-        label="Nombre"
-        placeholder="Samsung Galaxy S9"
+        label={fieldsTranslations.name}
+        placeholder={formTranslations.placeholders.name}
         register={register}
         errors={formState.errors}
         rules={{
@@ -69,8 +73,8 @@ export const PhoneForm = () => {
       />
       <InputText
         name="description"
-        label="Descripción"
-        placeholder="Lorem ipsum"
+        label={fieldsTranslations.description}
+        placeholder={formTranslations.placeholders.description}
         register={register}
         errors={formState.errors}
         rules={{
@@ -79,9 +83,9 @@ export const PhoneForm = () => {
       />
       <InputText
         name="price"
-        label="Precio"
+        label={fieldsTranslations.price}
         type="number"
-        placeholder="499"
+        placeholder={formTranslations.placeholders.price}
         register={register}
         errors={formState.errors}
         rules={{
@@ -90,7 +94,7 @@ export const PhoneForm = () => {
       />
       <Select
         name="color"
-        label="Color"
+        label={fieldsTranslations.color}
         options={colorsOptions}
         register={register}
         errors={formState.errors}
@@ -100,7 +104,7 @@ export const PhoneForm = () => {
       />
       <Select
         name="manufacturer"
-        label="Fabricante"
+        label={fieldsTranslations.manufacturer}
         options={manufacturerOptions}
         register={register}
         errors={formState.errors}
@@ -110,8 +114,8 @@ export const PhoneForm = () => {
       />
       <InputText
         name="processor"
-        label="Procesador"
-        placeholder="Qualcon"
+        label={fieldsTranslations.processor}
+        placeholder={formTranslations.placeholders.processor}
         register={register}
         errors={formState.errors}
         rules={{
@@ -120,9 +124,9 @@ export const PhoneForm = () => {
       />
       <InputText
         name="ram"
-        label="RAM"
+        label={fieldsTranslations.ram}
         type="number"
-        placeholder="8"
+        placeholder={formTranslations.placeholders.ram}
         register={register}
         errors={formState.errors}
         rules={{
@@ -136,7 +140,7 @@ export const PhoneForm = () => {
           isFullWidth
           isLoading={onSubmit.status === 'loading'}
         >
-          Crear móvil
+          {formTranslations.submitCreationBtn}
         </Button>
       </div>
     </form>

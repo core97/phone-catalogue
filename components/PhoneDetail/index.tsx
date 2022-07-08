@@ -3,6 +3,7 @@ import { Text } from 'components/Text';
 import { Button } from 'components/Button';
 import { useDeletePhoneMutation } from 'hooks/mutations';
 import { useAsync } from 'hooks/useAsync';
+import { useTranslation } from 'hooks/useTranslation';
 import { Props } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
 
@@ -18,6 +19,7 @@ export const PhoneDetail = ({
   ram,
 }: Props) => {
   const deletePhoneMutation = useDeletePhoneMutation();
+  const { translation } = useTranslation();
 
   const deletePhone = useAsync(
     async () => {
@@ -26,12 +28,12 @@ export const PhoneDetail = ({
     {
       isLoading: {
         toast: {
-          title: 'Espere, estamos borrando el teléfono',
+          title: translation.phone.messages.deletionLoading,
         },
       },
       success: {
         toast: {
-          title: 'El teléfomo se ha borrado correctamente',
+          title: translation.phone.messages.deletionSuccess,
         },
         redirect: '/',
       },
@@ -56,25 +58,25 @@ export const PhoneDetail = ({
       </header>
       <main>
         <div>
-          <Text size="lg">Descripción</Text>
+          <Text size="lg">{translation.phone.fields.description}</Text>
           <Text fontWeight="thin">{description}</Text>
         </div>
         <div>
-          <Text size="lg">Características</Text>
+          <Text size="lg">{translation.globalMsg.features}</Text>
           <div>
-            <Text>Color: </Text>
+            <Text>{`${translation.phone.fields.description}: `}</Text>
             <Text fontWeight="thin">{color}</Text>
           </div>
           <div>
-            <Text>Fabricante: </Text>
+            <Text>{`${translation.phone.fields.manufacturer}: `}</Text>
             <Text fontWeight="thin">{manufacturer}</Text>
           </div>
           <div>
-            <Text>Procesador: </Text>
+            <Text>{`${translation.phone.fields.processor}: `}</Text>
             <Text fontWeight="thin">{processor}</Text>
           </div>
           <div>
-            <Text>RAM: </Text>
+            <Text>{`${translation.phone.fields.ram}: `}</Text>
             <Text fontWeight="thin">{ram.toString()}</Text>
           </div>
         </div>
@@ -87,7 +89,7 @@ export const PhoneDetail = ({
           isFullWidth
           isLoading={deletePhone.status === 'loading'}
         >
-          Borrar teléfono
+          {translation.phone.messages.deleteBtn}
         </Button>
       </footer>
     </article>

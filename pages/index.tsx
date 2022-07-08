@@ -10,7 +10,7 @@ import { Language } from 'types/language';
 
 const HomePage: NextPage = () => {
   const phonesQuery = usePhonesQuery();
-  const { onChangeTranslation } = useTranslation();
+  const { onChangeTranslation, translation } = useTranslation();
 
   return (
     <Container size="xl">
@@ -27,7 +27,7 @@ const HomePage: NextPage = () => {
         data={phonesQuery.data}
         render={data => (
           <>
-            <Text size="2xl">Lista de móviles</Text>
+            <Text size="2xl">{translation.pages.home.header}</Text>
             <PhoneList
               list={data.map(phone => ({
                 id: phone.id,

@@ -1,4 +1,5 @@
 import { Text } from 'components/Text';
+import { useTranslation } from 'hooks/useTranslation';
 import { Props } from './AsynComponent.interface';
 import styles from './AsyncComponent.module.css';
 
@@ -11,11 +12,13 @@ export const AsyncComponent = <T extends unknown>({
   loadingMessage,
   noDataMessage,
 }: Props<T>) => {
+  const { translation } = useTranslation();
+
   if (isLoading) {
     return (
       <div className={styles['loading-wrapper']}>
         <Text size="lg" fontWeight="semibold">
-          {loadingMessage || 'Cargando...'}
+          {loadingMessage || translation.globalMsg.loading}
         </Text>
       </div>
     );
@@ -24,9 +27,7 @@ export const AsyncComponent = <T extends unknown>({
   if (error) {
     return (
       <div className={styles['error-wrapper']}>
-        <Text size="lg">
-          {errorMessage || 'Lo sentimos ha ocurrido un error'}
-        </Text>
+        <Text size="lg">{errorMessage || translation.globalMsg.error}</Text>
       </div>
     );
   }
@@ -39,7 +40,7 @@ export const AsyncComponent = <T extends unknown>({
   ) {
     return (
       <div className={styles['not-found-wrapper']}>
-        <Text>{noDataMessage || 'No se han encontrado resultados'}</Text>
+        <Text>{noDataMessage || translation.globalMsg.notFoundResults}</Text>
       </div>
     );
   }
