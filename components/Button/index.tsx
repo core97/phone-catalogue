@@ -1,18 +1,17 @@
 /* eslint-disable react/destructuring-assignment */
-import Link from 'next/link';
 import { Text } from 'components/Text';
 import { useTranslation } from 'hooks/useTranslation';
 import { classNames } from 'utils/styles-constants';
-import { ClickableProps, LinkProps } from './Button.interface';
+import { Props } from './Button.interface';
 import styles from './Button.module.css';
 
-export const Button = (props: ClickableProps | LinkProps) => {
+export const Button = (props: Props) => {
   const { translation } = useTranslation();
   const buttonClassNames = `${styles.button} ${
     props.isFullWidth ? classNames.width.full : ''
   }`;
 
-  if (props.as === 'link') {
+  /* if (props.as === 'link') {
     return (
       <Link href={props.link}>
         <a className={buttonClassNames}>
@@ -22,7 +21,7 @@ export const Button = (props: ClickableProps | LinkProps) => {
         </a>
       </Link>
     );
-  }
+  } */
 
   return (
     <button

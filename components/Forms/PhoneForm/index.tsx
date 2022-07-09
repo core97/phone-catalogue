@@ -136,7 +136,6 @@ export const PhoneForm = () => {
       />
       <div className={styles['submit-btn']}>
         <Button
-          as="button"
           type="submit"
           isFullWidth
           isLoading={onSubmit.status === 'loading'}

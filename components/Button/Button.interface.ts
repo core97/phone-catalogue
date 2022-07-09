@@ -1,17 +1,8 @@
-interface ButtonBaseProps {
+export interface Props {
   children: string;
-  isFullWidth?: boolean;
-}
-
-export interface LinkProps extends ButtonBaseProps {
-  as: 'link';
-  link: string;
-}
-
-export interface ClickableProps extends ButtonBaseProps {
-  as: 'button';
   disabled?: boolean;
   isLoading?: boolean;
   onClick?: (...args: any[]) => void;
+  isFullWidth?: boolean;
   type?: 'submit' | 'reset' | 'button';
 }

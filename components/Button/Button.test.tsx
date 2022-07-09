@@ -7,14 +7,14 @@ jest.mock('next/router', () => ({
   useRouter: () => ({ locale: 'es' }),
 }));
 
-describe('<Button as="button" />', () => {
+describe('<Button />', () => {
   const spyMock = jest.fn();
   const label = 'button_label';
   let component: RenderResult;
 
   beforeEach(() => {
     component = render(
-      <Button as="button" onClick={spyMock}>
+      <Button onClick={spyMock}>
         {label}
       </Button>
     );

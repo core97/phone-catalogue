@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import { Container } from 'components/Container';
 import { Text } from 'components/Text';
-import { Button } from 'components/Button';
+import { Link } from 'components/Link';
 import { useTranslation } from 'hooks/useTranslation';
 import { Props } from './Layout.interface';
 import styles from './Layout.module.css';
@@ -13,22 +12,16 @@ export const Layout = ({ children }: Props) => {
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <Container
-          size="2xl"
+          size="xl"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link href="/">
-            <a>
-              <Text as="h1" size="lg">
-                {translation.layout.navbar.logo}
-              </Text>
-            </a>
-          </Link>
+          <Link href="/">{translation.layout.navbar.logo}</Link>
 
-          <Button as="link" link="/phone/creation">
+          <Link href="/phone/creation">
             {translation.layout.navbar.createPhoneBtn}
-          </Button>
+          </Link>
         </Container>
       </header>
       <main className={styles.main}>{children}</main>
