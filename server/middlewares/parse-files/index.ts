@@ -1,7 +1,7 @@
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import formidable from 'formidable';
-import { CLIENT_ERROR_MESSAGE } from 'server/shared/constants';
+import { CLIENT_ERROR_MESSAGE, HTTP_CODE } from 'server/shared/constants';
 import { NextApiRequestWithFiles } from './parse-files.interface';
 
 export const parseFiles = nextConnect<
@@ -23,12 +23,12 @@ parseFiles.use((req, res, next) => {
       const existMsg = typeof err?.message === 'string';
 
       if (existMsg && err.message.includes('maxFileSize exceeded')) {
-        return res.status(400).json({
+        return res.status(HTTP_CODE.MAX_FILE_SIZE_EXCEEDED).json({
           message: CLIENT_ERROR_MESSAGE.MAX_FILE_SIZE_EXCEEDED,
         });
       }
 
-      return res.status(400).json({
+      return res.status(HTTP_CODE.UNKNOWN_ERROR_PARSING_FILES).json({
         message: CLIENT_ERROR_MESSAGE.UNKNOWN_ERROR_PARSING_FILES,
       });
     }

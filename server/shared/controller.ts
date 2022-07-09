@@ -3,6 +3,7 @@ import { injectable } from 'inversify';
 import {
   INTERNAL_ERROR_MSG,
   CLIENT_ERROR_MESSAGE,
+  HTTP_CODE,
 } from 'server/shared/constants';
 
 @injectable()
@@ -49,7 +50,7 @@ export abstract class Controller {
   protected clientError(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      400,
+      HTTP_CODE.BAD_REQUEST,
       message || CLIENT_ERROR_MESSAGE.BAD_REQUEST
     );
   }
@@ -57,7 +58,7 @@ export abstract class Controller {
   protected unauthorized(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      401,
+      HTTP_CODE.UNAUTHORIZATED,
       message || CLIENT_ERROR_MESSAGE.UNAUTHORIZATED
     );
   }
@@ -65,7 +66,7 @@ export abstract class Controller {
   protected forbidden(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      403,
+      HTTP_CODE.FORBIDDEN,
       message || CLIENT_ERROR_MESSAGE.FORBIDDEN
     );
   }
@@ -73,7 +74,7 @@ export abstract class Controller {
   protected notFound(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      404,
+      HTTP_CODE.NOT_FOUND,
       message || CLIENT_ERROR_MESSAGE.NOT_FOUND
     );
   }
@@ -81,7 +82,7 @@ export abstract class Controller {
   protected conflict(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      409,
+      HTTP_CODE.CONFLICT,
       message || CLIENT_ERROR_MESSAGE.CONFLICT
     );
   }
@@ -89,21 +90,13 @@ export abstract class Controller {
   protected invalidParams(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      422,
+      HTTP_CODE.UNPROCESSABLE_ENTITY,
       message || CLIENT_ERROR_MESSAGE.UNPROCESSABLE_ENTITY
     );
   }
 
-  protected tooManyRequests(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(
-      res,
-      429,
-      message || CLIENT_ERROR_MESSAGE.TOO_MANY_REQUEST
-    );
-  }
-
   protected fail(res: NextApiResponse, error?: Error | string) {
-    return res.status(500).json({
+    return res.status(HTTP_CODE.INTERNAL_ERROR).json({
       ...(error && { message: error.toString() }),
     });
   }
