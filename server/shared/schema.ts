@@ -1,5 +1,5 @@
 import { injectable, unmanaged } from 'inversify';
-import { ObjectSchema } from 'joi';
+import type { ObjectSchema } from 'joi';
 import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
 
 @injectable()
