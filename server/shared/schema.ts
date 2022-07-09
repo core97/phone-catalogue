@@ -15,7 +15,7 @@ export class Schema<T> {
     this.schemaName = schemaName;
   }
 
-  getValidatedValue(data: Partial<T>): T {
+  getValidatedValue(data: Partial<T>) {
     const { error, value, warning } = this.objectSchema.validate(data);
 
     if (error || warning) {
@@ -29,7 +29,7 @@ export class Schema<T> {
     return value;
   }
 
-  getSchema(): ObjectSchema<T> {
+  getSchema() {
     return this.objectSchema;
   }
 }

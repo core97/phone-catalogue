@@ -9,12 +9,12 @@ export class PhoneService {
     @inject(TYPES.PhoneRepository) private phoneRepository: PhoneRepository
   ) {}
 
-  async getPhones(): Promise<Phone[]> {
+  async getPhones() {
     const phones = await this.phoneRepository.findPhones();
     return phones;
   }
 
-  async getPhone(id: string): Promise<Phone | null> {
+  async getPhone(id: string) {
     const phone = await this.phoneRepository.findPhoneById(id);
     return phone;
   }
@@ -23,7 +23,7 @@ export class PhoneService {
     await this.phoneRepository.savePhone(phone);
   }
 
-  async deletePhone(id: string): Promise<void> {
+  async deletePhone(id: string) {
     await this.phoneRepository.deletePhoneById(id);
   }
 }

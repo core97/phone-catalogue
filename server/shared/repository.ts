@@ -6,7 +6,6 @@ import {
   Document,
   Filter,
   FindOptions,
-  FindCursor,
   WithId,
 } from 'mongodb';
 import { MongoDatabase } from 'server/modules/mongo-database';
@@ -23,7 +22,7 @@ export class Repository<T extends { id: string }> {
     @unmanaged() private schema: Schema<T>
   ) {}
 
-  async getCollection(): Promise<Collection> {
+  async getCollection() {
     const mongoDB = MongoDatabase.getInstance();
 
     if (!this.connection) {
@@ -37,15 +36,15 @@ export class Repository<T extends { id: string }> {
     return this.collection;
   }
 
-  protected async exists(id: string): Promise<boolean> {
+  protected async exists(id: string) {
     const collection = await this.getCollection();
     const doc = await collection.findOne<T>({ _id: this.toObjectId(id) });
     return !!doc;
   }
 
-  protected async save(aggregateRoot: T): Promise<void> {
+  protected async save(aggregateRoot: T) {
     const collection = await this.getCollection();
-    let doc: WithId<T> | undefined;
+    let doc: WithId<T>;
 
     try {
       doc = {
@@ -68,7 +67,7 @@ export class Repository<T extends { id: string }> {
     }
   }
 
-  protected async findOne(filter: Filter<T>): Promise<T | null> {
+  protected async findOne(filter: Filter<T>) {
     const collection = await this.getCollection();
     const docWithId = await collection.findOne<WithId<T>>(filter);
 
@@ -79,7 +78,7 @@ export class Repository<T extends { id: string }> {
     return { ...rest, id: _id.toString() } as unknown as T;
   }
 
-  protected async findById(id: string): Promise<T | null> {
+  protected async findById(id: string) {
     const collection = await this.getCollection();
     const docWithId = await collection.findOne<WithId<T>>({
       _id: this.toObjectId(id),
@@ -95,19 +94,19 @@ export class Repository<T extends { id: string }> {
   protected async find(
     filter: Filter<T>,
     options?: FindOptions<Document> | undefined
-  ): Promise<FindCursor<Omit<WithId<T>, 'id'>>> {
+  ) {
     const collection = await this.getCollection();
     const findCursor = collection.find<Omit<WithId<T>, 'id'>>(filter, options);
 
     return findCursor;
   }
 
-  protected async deleteOne(filter: Filter<T>): Promise<void> {
+  protected async deleteOne(filter: Filter<T>) {
     const collection = await this.getCollection();
     await collection.deleteOne(filter);
   }
 
-  protected toObjectId(id?: string): ObjectId {
+  protected toObjectId(id?: string) {
     return new ObjectId(id);
   }
 }

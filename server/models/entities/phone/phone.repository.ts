@@ -11,13 +11,13 @@ export class PhoneRepository extends Repository<Phone> {
     super(COLLECTION_NAME.PHONE, schema);
   }
 
-  async findPhones(): Promise<Phone[]> {
+  async findPhones() {
     const phonesCursor = await this.find({});
     const phones = await phonesCursor.toArray();
     return phones.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }));
   }
 
-  async findPhoneById(id: string): Promise<Phone | null> {
+  async findPhoneById(id: string) {
     const phone = await this.findById(id);
     return phone;
   }
@@ -26,7 +26,7 @@ export class PhoneRepository extends Repository<Phone> {
     await this.save(phone);
   }
 
-  async deletePhoneById(phoneId: string): Promise<void> {
+  async deletePhoneById(phoneId: string) {
     await this.deleteOne({
       _id: this.toObjectId(phoneId),
     });
