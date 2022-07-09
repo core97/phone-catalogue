@@ -19,7 +19,9 @@ parseFiles.use((req, res, next) => {
 
   multiPartFormData.parse(req, async (err, fields, files) => {
     if (err) {
-      if ((err.message as string).includes('maxFileSize exceeded')) {
+      const existMsg = typeof err?.message === 'string';
+
+      if (existMsg && err.message.includes('maxFileSize exceeded')) {
         return res.status(400).json({
           message: 'File too large',
         });
