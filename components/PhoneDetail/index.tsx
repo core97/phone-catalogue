@@ -84,7 +84,6 @@ export const PhoneDetail = ({
       </main>
       <footer>
         <Button
-          as="button"
           type="button"
           onClick={deletePhone.execute}
           isFullWidth
