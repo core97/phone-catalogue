@@ -4,29 +4,29 @@ import { SelectOption } from 'types/components';
 export const manufacturerOptions: SelectOption<Manufacter>[] = [
   {
     label: 'Apple',
-    value: 'apple',
+    value: Manufacter.APPLE,
   },
   {
     label: 'Samsung',
-    value: 'samsung',
+    value: Manufacter.SAMSUNG,
   },
   {
     label: 'Xiaomi',
-    value: 'xiaomi',
+    value: Manufacter.XIAOMI,
   },
 ];
 
 export const colorsOptions: SelectOption<PhoneColor>[] = [
   {
     label: 'Negro',
-    value: 'black',
+    value: PhoneColor.BLACK,
   },
   {
     label: 'Azul oscuro',
-    value: 'dark-blue',
+    value: PhoneColor.DARK_BLUE,
   },
   {
     label: 'Gris',
-    value: 'gray',
+    value: PhoneColor.GRAY,
   },
 ];

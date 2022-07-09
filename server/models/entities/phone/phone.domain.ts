@@ -1,5 +1,4 @@
-import { Manufacter, PhoneColor } from 'server/shared/types';
-import { Phone as PhoneEntity } from './phone.entity';
+import { Phone as PhoneEntity, Manufacter, PhoneColor } from './phone.entity';
 
 export class Phone implements PhoneEntity {
   id: string;

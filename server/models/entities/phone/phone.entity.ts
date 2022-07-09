@@ -1,4 +1,14 @@
-import { Manufacter, PhoneColor } from 'server/shared/types';
+export enum Manufacter {
+  APPLE = 'apple',
+  SAMSUNG = 'samsung',
+  XIAOMI = 'xiaomi',
+}
+
+export enum PhoneColor {
+  BLACK = 'black',
+  GRAY = 'gray',
+  DARK_BLUE = 'dark-blue',
+}
 
 export interface Phone {
   id: string;
