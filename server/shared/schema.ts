@@ -1,5 +1,6 @@
 import { injectable, unmanaged } from 'inversify';
 import { ObjectSchema } from 'joi';
+import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
 
 @injectable()
 export class Schema<T> {
@@ -22,7 +23,7 @@ export class Schema<T> {
       const msg = error?.message || warning?.message;
 
       throw new Error(
-        `[schema]: an error ocurred when validate value in ${this.schemaName}.\n${msg}`
+        INTERNAL_ERROR_MSG.INVALID_VALIDATION_SCHEMA(this.schemaName, msg)
       );
     }
 

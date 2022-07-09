@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
 
 export class MongoDatabase {
   private static instance: MongoDatabase;
@@ -17,7 +18,7 @@ export class MongoDatabase {
     const { MONGODB_URI } = process.env;
 
     if (typeof MONGODB_URI !== 'string') {
-      throw new Error('Define the MONGODB_URI environmental variable');
+      throw new Error(INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('MONGODB_URI'));
     }
 
     if (this.cachedClient) {
@@ -33,11 +34,7 @@ export class MongoDatabase {
       await client.connect();
       this.cachedClient = client;
     } catch (error) {
-      throw Error(
-        `[mongo-database]: an error ocurred when make connection with database.\n${JSON.stringify(
-          error
-        )}`
-      );
+      throw Error(INTERNAL_ERROR_MSG.CONNECTION_ERROR_WITH_DATABASE(error));
     }
 
     return this.cachedClient;

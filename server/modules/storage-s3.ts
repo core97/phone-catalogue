@@ -1,8 +1,8 @@
-import internal from 'stream';
 import S3 from 'aws-sdk/clients/s3';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import formidable from 'formidable';
+import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
 
 const {
   AWS_MY_BUCKET_NAME,
@@ -33,7 +33,7 @@ export class StorageS3 {
       typeof AWS_MY_ACCESS_KEY !== 'string' ||
       typeof AWS_MY_SECRET_KEY !== 'string'
     ) {
-      throw new Error('Define the aws environmental variables');
+      throw new Error(INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('AWS'));
     }
   }
 
@@ -47,7 +47,7 @@ export class StorageS3 {
     });
   }
 
-  async uploadFile(file: formidable.File, path?: string): Promise<string> {
+  async uploadFile(file: formidable.File, path?: string) {
     const fileStream = fs.createReadStream(file.filepath);
 
     let pathToBucket = path || '';
@@ -66,7 +66,7 @@ export class StorageS3 {
     return upload.Key;
   }
 
-  getFileStream(fileKey: string): internal.Readable {
+  getFileStream(fileKey: string) {
     return this.s3
       .getObject({
         Key: fileKey,

@@ -10,6 +10,7 @@ import {
 } from 'mongodb';
 import { MongoDatabase } from 'server/modules/mongo-database';
 import { Schema } from 'server/shared/schema';
+import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
 
 @injectable()
 export class Repository<T extends { id: string }> {
@@ -54,7 +55,7 @@ export class Repository<T extends { id: string }> {
       };
     } catch (error) {
       throw Error(
-        `[repository]: Aggregate root from ${this.collectionName} collection is invalid when the document is created or updated.\n${error}}`
+        INTERNAL_ERROR_MSG.INVALID_AGGREATE_ROOT(this.collectionName, error)
       );
     }
 

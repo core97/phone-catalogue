@@ -1,5 +1,9 @@
+import { NextApiResponse, NextApiRequest } from 'next';
 import { injectable } from 'inversify';
-import type { NextApiResponse, NextApiRequest } from 'next';
+import {
+  INTERNAL_ERROR_MSG,
+  CLIENT_ERROR_MESSAGE,
+} from 'server/shared/constants';
 
 @injectable()
 export abstract class Controller {
@@ -7,17 +11,22 @@ export abstract class Controller {
     req: NextApiRequest,
     res: NextApiResponse
   ): void | any;
-  
+
   public async execute(
     req: NextApiRequest,
     res: NextApiResponse
   ): Promise<void> {
     try {
       await this.executeImpl(req, res);
-    } catch (err) {
-      console.error(`[controller]: an unexpected error occurred in ${req.url}.`);
-      console.error(err);
-      this.fail(res, 'An unexpected error occurred');
+    } catch (error) {
+      console.error(
+        INTERNAL_ERROR_MSG.UNEXPECTED_ERROR_CONTROLLER({
+          error,
+          method: req.method,
+          url: req.url,
+        })
+      );
+      this.fail(res);
     }
   }
 
@@ -38,36 +47,64 @@ export abstract class Controller {
   }
 
   protected clientError(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 400, message || 'Bad requests');
+    return this.jsonResponse(
+      res,
+      400,
+      message || CLIENT_ERROR_MESSAGE.BAD_REQUEST
+    );
   }
 
   protected unauthorized(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 401, message || 'Unauthorized');
+    return this.jsonResponse(
+      res,
+      401,
+      message || CLIENT_ERROR_MESSAGE.UNAUTHORIZATED
+    );
   }
 
   protected forbidden(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 403, message || 'Forbidden');
+    return this.jsonResponse(
+      res,
+      403,
+      message || CLIENT_ERROR_MESSAGE.FORBIDDEN
+    );
   }
 
   protected notFound(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 404, message || 'Not found');
+    return this.jsonResponse(
+      res,
+      404,
+      message || CLIENT_ERROR_MESSAGE.NOT_FOUND
+    );
   }
 
   protected conflict(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 409, message || 'Conflict');
+    return this.jsonResponse(
+      res,
+      409,
+      message || CLIENT_ERROR_MESSAGE.CONFLICT
+    );
   }
 
   protected invalidParams(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 422, message || 'Unprocessable entity');
+    return this.jsonResponse(
+      res,
+      422,
+      message || CLIENT_ERROR_MESSAGE.UNPROCESSABLE_ENTITY
+    );
   }
 
   protected tooManyRequests(res: NextApiResponse, message?: string) {
-    return this.jsonResponse(res, 429, message || 'Too many requests');
+    return this.jsonResponse(
+      res,
+      429,
+      message || CLIENT_ERROR_MESSAGE.TOO_MANY_REQUEST
+    );
   }
 
-  protected fail(res: NextApiResponse, error: Error | string) {
+  protected fail(res: NextApiResponse, error?: Error | string) {
     return res.status(500).json({
-      message: error.toString(),
+      ...(error && { message: error.toString() }),
     });
   }
 }
