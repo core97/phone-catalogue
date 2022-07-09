@@ -13,7 +13,7 @@ export class GetPhoneController extends Controller {
     super();
   }
 
-  protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
+  protected async executeImpl(req: NextApiRequest, res: NextApiResponse) {
     const queryValidator = Joi.object({
       id: Joi.string().pattern(regexValidators.objectId).required(),
     });

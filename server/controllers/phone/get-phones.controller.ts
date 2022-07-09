@@ -11,7 +11,7 @@ export class GetPhonesController extends Controller {
     super();
   }
 
-  protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
+  protected async executeImpl(req: NextApiRequest, res: NextApiResponse) {
     const phones = await this.phoneService.getPhones();
     return this.ok<Phone[]>(res, phones);
   }

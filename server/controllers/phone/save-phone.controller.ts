@@ -14,7 +14,7 @@ export class SavePhoneController extends Controller {
     super();
   }
 
-  protected async executeImpl(req: NextApiRequest, res: NextApiResponse<any>) {
+  protected async executeImpl(req: NextApiRequest, res: NextApiResponse) {
     try {
       this.phoneSchema.getValidatedValue(req.body);
     } catch (error) {
