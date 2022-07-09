@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { StorageS3 } from 'server/modules/storage-s3';
-import {
-  parseFiles,
-  NextApiRequestWithFiles,
-} from 'server/middlewares/parse-files';
+import { parseFiles } from 'server/middlewares/parse-files';
+import { NextApiRequestWithFiles } from 'server/middlewares/parse-files/parse-files.interface';
 
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 

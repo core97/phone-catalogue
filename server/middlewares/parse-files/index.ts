@@ -1,10 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import formidable from 'formidable';
-
-export interface NextApiRequestWithFiles extends NextApiRequest {
-  files: formidable.File[];
-}
+import { NextApiRequestWithFiles } from './parse-files.interface';
 
 export const parseFiles = nextConnect<
   NextApiRequestWithFiles,
@@ -34,7 +31,7 @@ parseFiles.use((req, res, next) => {
     }
 
     const filesFormatParse = Array.from(Object.keys(files)).reduce(
-      (acc: any[], key) => {
+      (acc: formidable.File[], key) => {
         const file = files[key];
 
         if (Array.isArray(file)) {
