@@ -2,6 +2,10 @@ export const COLLECTION_NAME = {
   PHONE: 'phones',
 };
 
+export const SCHEMA_NAMES = {
+  PHONE: 'phone-schema',
+};
+
 export const INTERNAL_ERROR_MSG = {
   CONNECTION_ERROR_WITH_DATABASE: (error: unknown) =>
     `[mongo-database]: an error ocurred when make connection with database.\n${JSON.stringify(

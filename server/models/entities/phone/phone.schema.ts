@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import Joi from 'joi';
 import { Schema } from 'server/shared/schema';
+import { SCHEMA_NAMES } from 'server/shared/constants';
 import { regexValidators } from 'utils/regex';
 import { Phone, Manufacter, PhoneColor } from './phone.entity';
 
@@ -28,6 +29,6 @@ const schema = Joi.object<Phone>({
 @injectable()
 export class PhoneSchema extends Schema<Phone> {
   constructor() {
-    super(schema, 'phone-schema');
+    super(schema, SCHEMA_NAMES.PHONE);
   }
 }
