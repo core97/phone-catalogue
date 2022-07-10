@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Text } from 'components/Text';
 import { Routes } from 'types/routes';
 import { Props } from './PhoneCard.interface';
@@ -8,7 +9,13 @@ export const PhoneCard = ({ id, image, title }: Props) => (
   <Link href={`${Routes.PHONE_DETAIL}${id}`}>
     <a>
       <figure className={styles['image-wrapper']}>
-        <img loading="lazy" src={image} alt={title} />
+        <Image
+          loader={() => 'https://via.placeholder.com/500'}
+          src={image}
+          width={500}
+          height={500}
+          layout="responsive"
+        />
       </figure>
       <Text as="h4">{title}</Text>
     </a>
