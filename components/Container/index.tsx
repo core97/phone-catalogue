@@ -1,5 +1,5 @@
 import { classNames } from 'utils/styles-constants';
-import { Props } from './Container.interface';
+import { ContainerProps } from './Container.interface';
 import styles from './Container.module.css';
 
 export const Container = ({
@@ -9,7 +9,7 @@ export const Container = ({
   flexDirection,
   justifyContent,
   size,
-}: Props) => {
+}: ContainerProps) => {
   const defaultClassNameWidth = classNames.width.full;
 
   return (

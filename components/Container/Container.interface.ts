@@ -5,7 +5,7 @@ import {
   FlexDirection,
 } from 'types/styles';
 
-export interface Props {
+export interface ContainerProps {
   children: React.ReactNode | React.ReactNode[];
   alignItems?: FlexDistribution;
   display?: Display;
