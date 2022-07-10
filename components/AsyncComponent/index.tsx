@@ -1,6 +1,6 @@
 import { Text } from 'components/Text';
 import { useTranslation } from 'hooks/useTranslation';
-import { Props } from './AsynComponent.interface';
+import { AsyncComponentProps } from './AsynComponent.interface';
 import styles from './AsyncComponent.module.css';
 
 export const AsyncComponent = <T extends unknown>({
@@ -11,7 +11,7 @@ export const AsyncComponent = <T extends unknown>({
   errorMessage,
   loadingMessage,
   noDataMessage,
-}: Props<T>) => {
+}: AsyncComponentProps<T>) => {
   const { translation } = useTranslation();
 
   if (isLoading) {
