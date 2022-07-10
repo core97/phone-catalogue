@@ -1,3 +1,4 @@
+import { InputHTMLAttributes } from 'react';
 import {
   RegisterOptions,
   UseFormRegister,
@@ -18,6 +19,13 @@ export interface BaseValidatedFormElement<TFormValues> {
   register?: UseFormRegister<TFormValues>;
   errors?: DeepMap<FieldValues, FieldError>;
 }
+
+export type InputExtendType<TFormValues> =
+  BaseValidatedFormElement<TFormValues> &
+    Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      'name' | 'type' | 'accept' | 'autoComplete' | 'id'
+    >;
 
 export interface AsyncAction {
   action?: () => void;
