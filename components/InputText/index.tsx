@@ -1,36 +1,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Props } from './InputText.interface';
+import { InputTextProps } from './InputText.interface';
 
 export const InputText = <TFormValues extends Record<string, unknown>>({
-  name,
-  defaultValue,
-  disabled,
   errors,
   label,
-  placeholder,
   register,
   rules,
   type = 'text',
-}: Props<TFormValues>) => (
-  <div className={`form-group ${errors?.[name] ? 'form-group--error' : ''}`}>
+  ...rest
+}: InputTextProps<TFormValues>) => (
+  <div
+    className={`form-group ${errors?.[rest.name] ? 'form-group--error' : ''}`}
+  >
     {label && (
-      <label htmlFor={name}>
+      <label htmlFor={rest.name}>
         {rules?.required && <span>*</span>}
         {label}
       </label>
     )}
     <input
-      id={name}
+      {...rest}
+      id={rest.name}
       autoComplete="off"
-      name={name}
       type={type}
-      disabled={disabled}
-      defaultValue={defaultValue}
-      placeholder={placeholder}
-      {...(register && register(name, rules))}
+      {...(register && register(rest.name, rules))}
     />
-    {errors?.[name]?.message && (
-      <span role="alert">{errors[name].message}</span>
+    {errors?.[rest.name]?.message && (
+      <span role="alert">{errors[rest.name].message}</span>
     )}
   </div>
 );

@@ -1,10 +1,7 @@
-import { BaseValidatedFormElement } from 'types/components';
+import { InputExtendType } from 'types/components';
 
-export interface Props<TFormValues>
-  extends BaseValidatedFormElement<TFormValues> {
-  defaultValue?: string;
-  disabled?: boolean;
+export interface InputTextProps<TFormValues>
+  extends InputExtendType<TFormValues> {
   label?: string;
-  placeholder?: string;
   type?: 'text' | 'email' | 'tel' | 'password' | 'number';
 }
