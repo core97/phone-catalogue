@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Text } from 'components/Text';
 import { Routes } from 'types/routes';
-import { Props } from './PhoneCard.interface';
+import { PhoneCardProps } from './PhoneCard.interface';
 import styles from './PhoneCard.module.css';
 
-export const PhoneCard = ({ id, image, title }: Props) => (
+export const PhoneCard = ({ id, image, title }: PhoneCardProps) => (
   <Link href={`${Routes.PHONE_DETAIL}${id}`}>
     <a>
       <figure className={styles['image-wrapper']}>

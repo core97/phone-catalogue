@@ -1,6 +1,6 @@
 import { SizeMeasurement, FontWeight } from 'types/styles';
 
-export interface Props {
+export interface TextProps {
   children: string;
   fontWeight?: FontWeight;
   size?: SizeMeasurement;

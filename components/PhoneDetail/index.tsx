@@ -5,7 +5,7 @@ import { useDeletePhoneMutation } from 'hooks/mutations';
 import { useAsync } from 'hooks/useAsync';
 import { useTranslation } from 'hooks/useTranslation';
 import { Routes } from 'types/routes';
-import { Props } from './PhoneDetail.interface';
+import { PhoneDetailProps } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
 
 export const PhoneDetail = ({
@@ -18,7 +18,7 @@ export const PhoneDetail = ({
   price,
   processor,
   ram,
-}: Props) => {
+}: PhoneDetailProps) => {
   const deletePhoneMutation = useDeletePhoneMutation();
   const { translation } = useTranslation();
 

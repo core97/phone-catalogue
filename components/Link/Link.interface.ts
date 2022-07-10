@@ -1,4 +1,4 @@
-export interface Props {
+export interface LinkProps {
   children: string;
   href: string;
 }

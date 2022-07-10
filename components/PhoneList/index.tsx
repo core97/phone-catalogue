@@ -1,11 +1,9 @@
 import { memo } from 'react';
 import { PhoneCard } from 'components/PhoneCard';
-import { Props } from './PhoneList.interface';
+import { PhoneListProps } from './PhoneList.interface';
 import styles from './PhoneList.module.css';
 
-
-
-export const PhoneList = memo(({ list }: Props) => (
+export const PhoneList = memo(({ list }: PhoneListProps) => (
   <ul className={styles.list}>
     {list.map(({ id, image, title }) => (
       <li key={id}>

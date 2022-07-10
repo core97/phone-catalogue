@@ -1,13 +1,13 @@
 import React from 'react';
 import { classNames } from 'utils/styles-constants';
-import { Props } from './Text.interface';
+import { TextProps } from './Text.interface';
 
 export const Text = ({
   children,
   fontWeight,
   size,
   as: Component = 'p',
-}: Props) => (
+}: TextProps) => (
   <Component
     className={`${size ? classNames.fontSize[size] : classNames.fontSize.md} ${
       fontWeight

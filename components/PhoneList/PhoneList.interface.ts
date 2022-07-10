@@ -1,5 +1,5 @@
-import { Props as PhoneCardProps } from 'components/PhoneCard/PhoneCard.interface';
+import { PhoneCardProps } from 'components/PhoneCard/PhoneCard.interface';
 
-export interface Props {
+export interface PhoneListProps {
   list: PhoneCardProps[];
 }

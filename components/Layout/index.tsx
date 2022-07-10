@@ -2,10 +2,10 @@ import { Container } from 'components/Container';
 import { Text } from 'components/Text';
 import { Link } from 'components/Link';
 import { useTranslation } from 'hooks/useTranslation';
-import { Props } from './Layout.interface';
+import { LayoutProps } from './Layout.interface';
 import styles from './Layout.module.css';
 
-export const Layout = ({ children }: Props) => {
+export const Layout = ({ children }: LayoutProps) => {
   const { translation } = useTranslation();
 
   return (

@@ -1,3 +1,3 @@
 import { Phone } from 'types/models';
 
-export interface Props extends Omit<Phone, 'createdAt'> {}
+export interface PhoneDetailProps extends Omit<Phone, 'createdAt'> {}
