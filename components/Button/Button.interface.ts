@@ -1,8 +1,10 @@
-export interface Props {
+import { ButtonHTMLAttributes, MouseEventHandler } from 'react';
+
+export interface ButtonProps {
   children: string;
   disabled?: boolean;
   isLoading?: boolean;
-  onClick?: (...args: any[]) => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   isFullWidth?: boolean;
-  type?: 'submit' | 'reset' | 'button';
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
