@@ -1,28 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Props } from './Select.interface';
+import { SelectProps } from './Select.interface';
 
 export const Select = <TFormValues extends Record<string, unknown>>({
-  name,
   options,
-  defaultValue,
-  disabled,
   errors,
   label,
   register,
   rules,
-}: Props<TFormValues>) => (
-  <div className={`form-group ${errors?.[name] ? 'form-group--error' : ''}`}>
+  ...rest
+}: SelectProps<TFormValues>) => (
+  <div
+    className={`form-group ${errors?.[rest.name] ? 'form-group--error' : ''}`}
+  >
     {label && (
-      <label htmlFor={name}>
+      <label htmlFor={rest.name}>
         {rules?.required && <span>*</span>}
         {label}
       </label>
     )}
     <select
+      {...rest}
+      id={rest.name}
       name="select"
-      disabled={disabled}
-      defaultValue={defaultValue}
-      {...(register && register(name, rules))}
+      {...(register && register(rest.name, rules))}
     >
       {options.map(option => (
         <option key={option.value} value={option.value}>
@@ -30,8 +30,8 @@ export const Select = <TFormValues extends Record<string, unknown>>({
         </option>
       ))}
     </select>
-    {errors?.[name]?.message && (
-      <span role="alert">{errors[name].message}</span>
+    {errors?.[rest.name]?.message && (
+      <span role="alert">{errors[rest.name].message}</span>
     )}
   </div>
 );

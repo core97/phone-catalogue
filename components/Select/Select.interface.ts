@@ -1,9 +1,7 @@
-import { SelectOption, BaseValidatedFormElement } from 'types/components';
+import { SelectOption, SelectExtendType } from 'types/components';
 
-export interface Props<TFormValues>
-  extends BaseValidatedFormElement<TFormValues> {
+export interface SelectProps<TFormValues>
+  extends SelectExtendType<TFormValues> {
   options: SelectOption[];
-  defaultValue?: string;
-  disabled?: boolean;
   label?: string;
 }
