@@ -4,7 +4,7 @@ import { Props } from './Link.interface';
 
 export const Link = ({ children, href }: Props) => (
   <NextLink href={href}>
-    <a>
+    <a className="custom-link">
       <Text as="span" fontWeight="semibold">
         {children}
       </Text>
