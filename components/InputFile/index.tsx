@@ -1,25 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Props } from './InputFile.interface';
+import { InputFileProps } from './InputFile.interface';
 
 export const InputFile = <TFormValues extends Record<string, unknown>>({
-  name,
-  disabled,
   errors,
   register,
   rules,
-}: Props<TFormValues>) => (
-  <div className={`form-group ${errors?.[name] ? 'form-group--error' : ''}`}>
+  ...rest
+}: InputFileProps<TFormValues>) => (
+  <div
+    className={`form-group ${errors?.[rest.name] ? 'form-group--error' : ''}`}
+  >
     <input
-      id={name}
+      {...rest}
+      id={rest.name}
       autoComplete="off"
-      name={name}
       type="file"
       accept="image/jpg, image/jpeg, image/png"
-      disabled={disabled}
-      {...(register && register(name, rules))}
+      {...(register && register(rest.name, rules))}
     />
-    {errors?.[name]?.message && (
-      <span role="alert">{errors[name].message}</span>
+    {errors?.[rest.name]?.message && (
+      <span role="alert">{errors[rest.name].message}</span>
     )}
   </div>
 );

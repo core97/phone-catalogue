@@ -1,6 +1,5 @@
-import { BaseValidatedFormElement } from 'types/components';
+import { InputExtendType } from 'types/components';
 
-export interface Props<TFormValues>
-  extends BaseValidatedFormElement<TFormValues> {
+export interface InputFileProps<TFormValues> extends InputExtendType<TFormValues> {
   disabled?: boolean;
 }
