@@ -1,34 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Phone catalogue
 
-## Getting Started
+Code challenge.
 
-First, run the development server:
+## Installation
+
+You must install the dependencies with `npm i` and run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
 ```
+    
+## Environment Variables
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To run this project, you will need to add the following environment variables to your `.env.local` file at the root of the project.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+# Mongo uri connection
+MONGODB_URI
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# AWS Bucket
+AWS_MY_BUCKET_NAME
+AWS_MY_BUCKET_REGION
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# AWS User
+AWS_MY_ACCESS_KEY
+AWS_MY_SECRET_KEY
 
-## Learn More
+# Base url api
+NEXT_PUBLIC_BASE_URL_API
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+It is configured as a monorepo project. The server is located in the server folder at the root of the project and the endpoints from `pages/api*`.
 
-## Deploy on Vercel
+### Frontend features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [react-query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/).
+- translations (spanish and english).
+- testing with [react testing library](https://testing-library.com/docs/react-testing-library/intro/).
+- [pre-commit hook](https://www.npmjs.com/package/pre-commit).
+- form validations with [react hook form](https://react-hook-form.com/).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Backend features
+
+- Domain-driven design (DDD) .
+- Storage S3.
+- MongoDB.
+- Validation of models with [Joi](https://joi.dev/).
+- Dependency injection (DI) with [inversify](https://inversify.io/).
+## Acknowledgements
+
+ - [Upload Images to S3 from Node Back End](https://www.youtube.com/watch?v=NZElg91l_ms&ab_channel=SamMeech-Ward)
