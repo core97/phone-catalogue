@@ -10,7 +10,6 @@ export const PhoneCard = ({ id, image, title }: Props) => (
     <a>
       <figure className={styles['image-wrapper']}>
         <Image
-          loader={() => 'https://via.placeholder.com/500'}
           src={image}
           width={500}
           height={500}
