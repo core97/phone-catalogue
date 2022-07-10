@@ -1,10 +1,7 @@
-import { ButtonHTMLAttributes, MouseEventHandler } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
-  disabled?: boolean;
   isLoading?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
   isFullWidth?: boolean;
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
