@@ -9,7 +9,13 @@ export const PhoneCard = ({ id, image, title }: Props) => (
   <Link href={`${Routes.PHONE_DETAIL}${id}`}>
     <a>
       <figure className={styles['image-wrapper']}>
-        <Image src={image} width={500} height={500} layout="responsive" />
+        <Image
+          loader={() => 'https://via.placeholder.com/500'}
+          src={image}
+          width={500}
+          height={500}
+          layout="responsive"
+        />
       </figure>
       <Text as="h4">{title}</Text>
     </a>
