@@ -1,3 +1,11 @@
+.card {
+  transition: all .15s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
 .image-wrapper {
   width: 100%;
   height: auto;
