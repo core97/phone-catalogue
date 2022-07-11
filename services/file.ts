@@ -2,7 +2,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { httpInstance } from 'services/http-instance';
 import { Endpoints } from 'types/endpoints';
 
-export const uploadFile = async (files: File | File[], path?: string) => {
+export const uploadFile = async (files: File | File[]) => {
   const formData = new FormData();
 
   if (Array.isArray(files)) {
@@ -11,14 +11,13 @@ export const uploadFile = async (files: File | File[], path?: string) => {
     formData.append(uuidV4(), files);
   }
 
-  let url = `${Endpoints.UPLOAD_FILES}`;
-  if (path) {
-    url += `?path=${path}`;
-  }
-
-  const res = await httpInstance.post<{ files: string[] }>(url, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+  const res = await httpInstance.post<{ files: string[] }>(
+    Endpoints.UPLOAD_FILES,
+    formData,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }
+  );
 
   return res.data;
 };
