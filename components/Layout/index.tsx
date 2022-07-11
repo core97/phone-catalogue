@@ -2,6 +2,7 @@ import { Container } from 'components/Container';
 import { Text } from 'components/Text';
 import { Link } from 'components/Link';
 import { useTranslation } from 'hooks/useTranslation';
+import { Routes } from 'types/routes';
 import { LayoutProps } from './Layout.interface';
 import styles from './Layout.module.css';
 
@@ -17,9 +18,9 @@ export const Layout = ({ children }: LayoutProps) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link href="/">{translation.layout.navbar.logo}</Link>
+          <Link href={Routes.HOME}>{translation.layout.navbar.logo}</Link>
 
-          <Link href="/phone/creation">
+          <Link href={Routes.PHONE_CREATION}>
             {translation.layout.navbar.createPhoneBtn}
           </Link>
         </Container>
