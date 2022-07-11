@@ -156,3 +156,12 @@
 .custom-link:hover {
   background-color: var(--color-gray--300);
 }
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
