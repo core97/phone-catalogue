@@ -1,10 +1,8 @@
 import { v4 as uuidV4 } from 'uuid';
 import { httpInstance } from 'services/http-instance';
+import { Endpoints } from 'types/endpoints';
 
-export const uploadFile = async (
-  files: File | File[],
-  path?: string
-): Promise<{ files: string[] }> => {
+export const uploadFile = async (files: File | File[], path?: string) => {
   const formData = new FormData();
 
   if (Array.isArray(files)) {
@@ -13,20 +11,20 @@ export const uploadFile = async (
     formData.append(uuidV4(), files);
   }
 
-  let url = '/storage/upload-files';
+  let url = `${Endpoints.UPLOAD_FILES}`;
   if (path) {
-    url = `${url}?path=${path}`;
+    url += `?path=${path}`;
   }
 
-  const res = await httpInstance.post(url, formData, {
+  const res = await httpInstance.post<{ files: string[] }>(url, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
   return res.data;
 };
 
-export const deleteFile = async (paths: string | string[]): Promise<void> => {
-  let endpoint = '/storage/delete-files';
+export const deleteFile = async (paths: string | string[]) => {
+  let endpoint = `${Endpoints.DELETE_FILES}`;
   let urlFiles: string[] = [];
 
   urlFiles = Array.isArray(paths) ? [...paths] : [paths];
