@@ -18,7 +18,7 @@ parseFiles.use((req, res, next) => {
     keepExtensions: true,
   });
 
-  multiPartFormData.parse(req, async (err, fields, files) => {
+  multiPartFormData.parse(req, async (err, _fields, files) => {
     if (err) {
       const existMsg = typeof err?.message === 'string';
 
