@@ -1,0 +1,15 @@
+.button {
+  padding: .5rem;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background-color: var(--color-gray--400);
+}
+
+.button img {
+  width: 30px;
+  height: 30px;
+}
