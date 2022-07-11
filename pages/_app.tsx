@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 import { ToastContainer } from 'react-toastify';
 import { Layout } from 'components/Layout';
+import { getSecondsInMiliseconds } from 'utils/generators';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/globals.css';
 import 'styles/theme.css';
@@ -16,7 +17,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         defaultOptions: {
           queries: {
             retry: false,
-            staleTime: 60 * 1000, // 1 minute
+            staleTime: getSecondsInMiliseconds(60),
             refetchOnWindowFocus: false,
           },
         },
