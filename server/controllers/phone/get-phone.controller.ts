@@ -26,10 +26,6 @@ export class GetPhoneController extends Controller {
 
     const phone = await this.phoneService.getPhone(req.query.id as string);
 
-    if (!phone) {
-      return this.notFound(res);
-    }
-
     return this.ok<Phone>(res, phone);
   }
 }

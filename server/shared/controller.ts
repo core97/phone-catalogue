@@ -2,9 +2,10 @@ import { NextApiResponse, NextApiRequest } from 'next';
 import { injectable } from 'inversify';
 import {
   INTERNAL_ERROR_MSG,
-  CLIENT_ERROR_MESSAGE,
-  HTTP_CODE,
+  CLIENT_ERROR_TO_HTTP_STATUS,
 } from 'server/shared/constants';
+import { HttpStatus } from 'server/shared/http-status';
+import { AppError } from 'server/shared/app-error';
 
 @injectable()
 export abstract class Controller {
@@ -20,6 +21,12 @@ export abstract class Controller {
     try {
       await this.executeImpl(req, res);
     } catch (error) {
+      if (error instanceof AppError) {
+        const httpStatus = CLIENT_ERROR_TO_HTTP_STATUS[error.code];
+        this.jsonResponse(res, httpStatus, error.message);
+        return;
+      }
+
       console.error(
         INTERNAL_ERROR_MSG.UNEXPECTED_ERROR_CONTROLLER({
           error,
@@ -27,76 +34,81 @@ export abstract class Controller {
           url: req.url,
         })
       );
+      
       this.fail(res);
     }
   }
 
-  protected jsonResponse(res: NextApiResponse, code: number, message: string) {
-    return res.status(code).json({ message });
+  protected jsonResponse(res: NextApiResponse, code: HttpStatus, message?: string) {
+    if (message) {
+      return res.status(code).json({ message });
+    }
+
+    return res.status(code).end(); 
   }
 
   protected ok<T>(res: NextApiResponse, dto?: T) {
     if (dto) {
-      return res.status(200).json(dto);
+      return res.status(HttpStatus.OK).json(dto);
     }
 
-    return res.status(200).end();
+    return res.status(HttpStatus.OK).end();
   }
 
   protected created(res: NextApiResponse) {
-    return res.status(201).end();
+    return res.status(HttpStatus.CREATED).end();
   }
 
   protected clientError(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.BAD_REQUEST,
-      message || CLIENT_ERROR_MESSAGE.BAD_REQUEST
+      HttpStatus.BAD_REQUEST,
+      message,
     );
   }
 
   protected unauthorized(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.UNAUTHORIZATED,
-      message || CLIENT_ERROR_MESSAGE.UNAUTHORIZATED
+      HttpStatus.UNAUTHORIZATED,
+      message,
     );
   }
 
   protected forbidden(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.FORBIDDEN,
-      message || CLIENT_ERROR_MESSAGE.FORBIDDEN
+      HttpStatus.FORBIDDEN,
+      message,
     );
   }
 
   protected notFound(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.NOT_FOUND,
-      message || CLIENT_ERROR_MESSAGE.NOT_FOUND
+      HttpStatus.NOT_FOUND,
+      message,
     );
   }
 
   protected conflict(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.CONFLICT,
-      message || CLIENT_ERROR_MESSAGE.CONFLICT
+      HttpStatus.CONFLICT,
+      message,
     );
   }
 
   protected invalidParams(res: NextApiResponse, message?: string) {
     return this.jsonResponse(
       res,
-      HTTP_CODE.UNPROCESSABLE_ENTITY,
-      message || CLIENT_ERROR_MESSAGE.UNPROCESSABLE_ENTITY
+      HttpStatus.UNPROCESSABLE_ENTITY,
+      message,
     );
   }
 
   protected fail(res: NextApiResponse, error?: Error | string) {
-    return res.status(HTTP_CODE.INTERNAL_ERROR).json({
+    return res.status(HttpStatus.INTERNAL_ERROR).json({
       ...(error && { message: error.toString() }),
     });
   }
