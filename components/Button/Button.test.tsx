@@ -6,7 +6,7 @@ import {
   RenderResult,
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useTranslation } from 'hooks/useTranslation';
 import { Button } from './index';
 
 jest.mock('next/router', () => ({
