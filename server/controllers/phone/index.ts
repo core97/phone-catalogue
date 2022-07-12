@@ -1,6 +1,6 @@
 import container from 'server/shared/inversify.config';
 import { DeletePhoneController } from './delete-phone.controller';
-import { GetPhoneController } from './get-phone.controller';
+import { GetPhoneController } from './get-phone';
 import { GetPhonesController } from './get-phones.controller';
 import { SavePhoneController } from './save-phone.controller';
 
