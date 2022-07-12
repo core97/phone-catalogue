@@ -10,7 +10,7 @@ export enum PhoneColor {
   DARK_BLUE = 'dark-blue',
 }
 
-export interface Phone {
+export interface PhoneEntity {
   id: string;
   color: PhoneColor;
   createdAt: Date;

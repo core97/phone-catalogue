@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { inject, injectable } from 'inversify';
 import { Controller } from 'server/shared/controller';
 import { PhoneService } from 'server/models/entities/phone/phone.service';
-import { Phone } from 'server/models/entities/phone/phone.entity';
+import { PhoneDetailDto } from 'server/models/entities/phone/dtos/phone-detail.dto';
 import { TYPES } from 'server/shared/container-types';
 import { regexValidators } from 'utils/regex';
 
@@ -26,6 +26,6 @@ export class GetPhoneController extends Controller {
 
     const phone = await this.phoneService.getPhone(req.query.id as string);
 
-    return this.ok<Phone>(res, phone);
+    return this.ok<PhoneDetailDto>(res, phone);
   }
 }
