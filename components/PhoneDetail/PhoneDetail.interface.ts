@@ -1,7 +1,7 @@
-import { Phone } from 'types/models';
+import { PhoneEntity } from 'types/models';
 
 export type PhoneDetailProps = Pick<
-  Phone,
+  PhoneEntity,
   | 'id'
   | 'color'
   | 'description'
