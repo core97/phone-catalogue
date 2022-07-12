@@ -2,7 +2,7 @@ import S3 from 'aws-sdk/clients/s3';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import formidable from 'formidable';
-import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
+import { INTERNAL_ERROR_MSG } from 'server/common/errors/error-messages';
 
 const {
   AWS_MY_BUCKET_NAME,
@@ -18,7 +18,7 @@ export class StorageS3 {
 
   public static getInstance(): StorageS3 {
     StorageS3.checkEnvironment();
-    
+
     if (!StorageS3.instance) {
       StorageS3.instance = new StorageS3();
     }
@@ -33,7 +33,9 @@ export class StorageS3 {
       typeof AWS_MY_ACCESS_KEY !== 'string' ||
       typeof AWS_MY_SECRET_KEY !== 'string'
     ) {
-      throw new Error(INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('AWS'));
+      throw new Error(
+        INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('AWS')
+      );
     }
   }
 

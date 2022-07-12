@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { Repository } from 'server/shared/repository';
-import { COLLECTION_NAME } from 'server/shared/constants';
+import { COLLECTION_NAME } from 'server/common/constants';
 import { TYPES } from 'server/shared/container-types';
 import { Phone } from './phone.entity';
 import { PhoneSchema } from './phone.schema';

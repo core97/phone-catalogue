@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import Joi from 'joi';
 import { Schema } from 'server/shared/schema';
-import { SCHEMA_NAMES } from 'server/shared/constants';
+import { SCHEMA_NAMES } from 'server/common/constants';
 import { regexValidators } from 'utils/regex';
 import { Phone, Manufacter, PhoneColor } from './phone.entity';
 

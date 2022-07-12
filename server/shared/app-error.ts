@@ -1,4 +1,4 @@
-import { CLIENT_ERROR_CODE } from 'server/shared/constants';
+import { CLIENT_ERROR_CODE } from 'server/common/errors/client-errors';
 
 export class AppError extends Error {
   public readonly code: CLIENT_ERROR_CODE;

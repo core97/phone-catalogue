@@ -1,5 +1,5 @@
 import { AppError } from 'server/shared/app-error';
-import { CLIENT_ERROR_CODE } from 'server/shared/constants';
+import { CLIENT_ERROR_CODE } from 'server/common/errors/client-errors';
 
 export class PhoneNotFound extends AppError {
   constructor(message?: string) {

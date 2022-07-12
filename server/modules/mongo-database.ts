@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
+import { INTERNAL_ERROR_MSG } from 'server/common/errors/error-messages';
 
 export class MongoDatabase {
   private static instance: MongoDatabase;
@@ -18,7 +18,9 @@ export class MongoDatabase {
     const { MONGODB_URI } = process.env;
 
     if (typeof MONGODB_URI !== 'string') {
-      throw new Error(INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('MONGODB_URI'));
+      throw new Error(
+        INTERNAL_ERROR_MSG.NOT_FOUND_ENVIRONMENTAL_VARIABLE('MONGODB_URI')
+      );
     }
 
     if (this.cachedClient) {
