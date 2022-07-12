@@ -4,8 +4,8 @@ import { PhoneSchema } from 'server/models/entities/phone/phone.schema';
 import { PhoneService } from 'server/models/entities/phone/phone.service';
 import { DeletePhoneController } from 'server/controllers/phone/delete-phone';
 import { GetPhoneController } from 'server/controllers/phone/get-phone';
+import { SavePhoneController } from 'server/controllers/phone/save-phone';
 import { GetPhonesController } from 'server/controllers/phone/get-phones.controller';
-import { SavePhoneController } from 'server/controllers/phone/save-phone.controller';
 import { TYPES } from './container-types';
 
 const DIContainer = new Container();

@@ -1,8 +1,8 @@
 import container from 'server/shared/inversify.config';
-import { DeletePhoneController } from './delete-phone.controller';
+import { DeletePhoneController } from './delete-phone';
 import { GetPhoneController } from './get-phone';
+import { SavePhoneController } from './save-phone';
 import { GetPhonesController } from './get-phones.controller';
-import { SavePhoneController } from './save-phone.controller';
 
 export const getPhoneCtrl =
   container.resolve<GetPhoneController>(GetPhoneController);
