@@ -1,22 +1,44 @@
+import { ObjectSchema } from 'joi';
 import { NextApiResponse, NextApiRequest } from 'next';
-import { injectable } from 'inversify';
+import { injectable, unmanaged } from 'inversify';
 import { CLIENT_ERROR_TO_HTTP_STATUS } from 'server/common/errors/client-errors';
 import { INTERNAL_ERROR_MSG } from 'server/common/errors/error-messages';
 import { HttpStatus } from 'server/common/http-status';
+import { validateRequest } from 'server/common/helpers/validate-request.helper';
 import { AppError } from 'server/shared/app-error';
 
 @injectable()
 export abstract class Controller {
+  querySchema?: ObjectSchema;
+
+  bodySchema?: ObjectSchema;
+
+  constructor(
+    @unmanaged()
+    args: { bodySchema?: ObjectSchema; querySchema?: ObjectSchema } = {}
+  ) {
+    Object.assign(this, args);
+  }
+
   protected abstract executeImpl(
     req: NextApiRequest,
     res: NextApiResponse
-  ): void | any;
+  ): Promise<void | NextApiResponse>;
 
   public async execute(
     req: NextApiRequest,
     res: NextApiResponse
   ): Promise<void> {
     try {
+      if (this.bodySchema || this.querySchema) {
+        const { bodySchema, querySchema } = this;
+        validateRequest({
+          req,
+          ...(bodySchema && { bodySchema }),
+          ...(querySchema && { querySchema }),
+        });
+      }
+
       await this.executeImpl(req, res);
     } catch (error) {
       if (error instanceof AppError) {
