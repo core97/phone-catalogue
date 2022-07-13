@@ -1,14 +1,18 @@
 import { memo } from 'react';
 import { PhoneCard } from 'components/PhoneCard';
-import { PhoneListProps } from './PhoneList.interface';
+import { usePhonesQuery } from 'hooks/queries';
 import styles from './PhoneList.module.css';
 
-export const PhoneList = memo(({ list }: PhoneListProps) => (
-  <ul className={styles.list}>
-    {list.map(({ id, image, title }) => (
-      <li key={id}>
-        <PhoneCard id={id} image={image} title={title} />
-      </li>
-    ))}
-  </ul>
-));
+export const PhoneList = memo(() => {
+  const phonesQuery = usePhonesQuery();
+
+  return (
+    <ul className={styles.list}>
+      {phonesQuery.data?.map(({ id, imageFileName, name }) => (
+        <li key={id}>
+          <PhoneCard id={id} image={imageFileName} title={name} />
+        </li>
+      ))}
+    </ul>
+  );
+});
