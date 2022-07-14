@@ -4,7 +4,7 @@ import formidable from 'formidable';
 import {
   CLIENT_ERROR_CODE,
   CLIENT_ERROR_TO_HTTP_STATUS,
-} from 'server/shared/constants';
+} from 'server/common/errors/client-errors';
 import { NextApiRequestWithFiles } from './parse-files.interface';
 
 export const parseFiles = nextConnect<

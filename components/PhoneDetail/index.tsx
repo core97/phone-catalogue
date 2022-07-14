@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Text } from 'components/Text';
 import { Button } from 'components/Button';
+import { usePhoneQuery } from 'hooks/queries';
 import { useDeletePhoneMutation } from 'hooks/mutations';
 import { useAsync } from 'hooks/useAsync';
 import { useTranslation } from 'hooks/useTranslation';
@@ -8,23 +9,16 @@ import { Routes } from 'types/routes';
 import { PhoneDetailProps } from './PhoneDetail.interface';
 import styles from './PhoneDetail.module.css';
 
-export const PhoneDetail = ({
-  color,
-  description,
-  id,
-  imageFileName,
-  manufacturer,
-  name,
-  price,
-  processor,
-  ram,
-}: PhoneDetailProps) => {
+export const PhoneDetail = ({ id }: PhoneDetailProps) => {
+  const phoneQuery = usePhoneQuery(id);
   const deletePhoneMutation = useDeletePhoneMutation();
   const { translation } = useTranslation();
 
   const deletePhone = useAsync(
     async () => {
-      await deletePhoneMutation.mutateAsync(id);
+      if (phoneQuery.data) {
+        await deletePhoneMutation.mutateAsync(phoneQuery.data.id);
+      }
     },
     {
       isLoading: {
@@ -41,11 +35,19 @@ export const PhoneDetail = ({
     }
   );
 
+  if (phoneQuery.isLoading) {
+    return <Text>{translation.globalMsg.loading}</Text>;
+  }
+
+  if (!phoneQuery.data) {
+    return <Text>{translation.globalMsg.notFoundResults}</Text>;
+  }
+
   return (
     <article className={styles.wrapper}>
       <figure>
         <Image
-          src={imageFileName}
+          src={phoneQuery.data.imageFileName}
           width={500}
           height={500}
           layout="responsive"
@@ -53,32 +55,32 @@ export const PhoneDetail = ({
       </figure>
       <header>
         <Text as="h4" size="xl" fontWeight="semibold">
-          {name}
+          {phoneQuery.data.name}
         </Text>
-        <Text>{`${price} €`}</Text>
+        <Text>{`${phoneQuery.data.price} €`}</Text>
       </header>
       <main>
         <div>
           <Text size="lg">{translation.phone.fields.description}</Text>
-          <Text fontWeight="thin">{description}</Text>
+          <Text fontWeight="thin">{phoneQuery.data.description}</Text>
         </div>
         <div>
           <Text size="lg">{translation.globalMsg.features}</Text>
           <div>
             <Text>{`${translation.phone.fields.description}: `}</Text>
-            <Text fontWeight="thin">{color}</Text>
+            <Text fontWeight="thin">{phoneQuery.data.color}</Text>
           </div>
           <div>
             <Text>{`${translation.phone.fields.manufacturer}: `}</Text>
-            <Text fontWeight="thin">{manufacturer}</Text>
+            <Text fontWeight="thin">{phoneQuery.data.manufacturer}</Text>
           </div>
           <div>
             <Text>{`${translation.phone.fields.processor}: `}</Text>
-            <Text fontWeight="thin">{processor}</Text>
+            <Text fontWeight="thin">{phoneQuery.data.processor}</Text>
           </div>
           <div>
             <Text>{`${translation.phone.fields.ram}: `}</Text>
-            <Text fontWeight="thin">{ram.toString()}</Text>
+            <Text fontWeight="thin">{phoneQuery.data.ram.toString()}</Text>
           </div>
         </div>
       </main>

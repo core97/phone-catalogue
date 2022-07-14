@@ -47,7 +47,6 @@ It is configured as a monorepo project. The server is located in the server fold
 
 ### Backend features
 
-- Domain-driven design (DDD) .
 - Storage S3.
 - MongoDB.
 - Validation of models with [Joi](https://joi.dev/).

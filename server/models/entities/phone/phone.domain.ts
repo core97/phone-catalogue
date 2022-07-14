@@ -1,4 +1,4 @@
-import { Phone as PhoneEntity, Manufacter, PhoneColor } from './phone.entity';
+import { PhoneEntity, Manufacter, PhoneColor } from './phone.entity';
 
 export class Phone implements PhoneEntity {
   id: string;

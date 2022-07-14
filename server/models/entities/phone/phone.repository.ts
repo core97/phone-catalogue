@@ -1,12 +1,14 @@
 import { injectable, inject } from 'inversify';
 import { Repository } from 'server/shared/repository';
-import { COLLECTION_NAME } from 'server/shared/constants';
+import { COLLECTION_NAME } from 'server/common/constants';
 import { TYPES } from 'server/shared/container-types';
-import { Phone } from './phone.entity';
+import { PhoneEntity } from './phone.entity';
 import { PhoneSchema } from './phone.schema';
+import { Phone } from './phone.domain';
+import { PhoneNotFound } from './errors/phone-not-found.error';
 
 @injectable()
-export class PhoneRepository extends Repository<Phone> {
+export class PhoneRepository extends Repository<PhoneEntity> {
   constructor(@inject(TYPES.PhoneSchema) schema: PhoneSchema) {
     super(COLLECTION_NAME.PHONE, schema);
   }
@@ -14,15 +16,18 @@ export class PhoneRepository extends Repository<Phone> {
   async findPhones() {
     const phonesCursor = await this.find({});
     const phones = await phonesCursor.toArray();
-    return phones.map(({ _id, ...rest }) => ({ id: _id.toString(), ...rest }));
+    return phones.map(
+      ({ _id, ...rest }) => new Phone({ id: _id.toString(), ...rest })
+    );
   }
 
   async findPhoneById(id: string) {
     const phone = await this.findById(id);
-    return phone;
+    if (!phone) throw new PhoneNotFound();
+    return new Phone(phone);
   }
 
-  async savePhone(phone: Phone) {
+  async savePhone(phone: PhoneEntity) {
     await this.save(phone);
   }
 

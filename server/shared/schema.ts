@@ -1,6 +1,6 @@
 import { injectable, unmanaged } from 'inversify';
 import type { ObjectSchema } from 'joi';
-import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
+import { INTERNAL_ERROR_MSG } from 'server/common/errors/error-messages';
 
 @injectable()
 export class Schema<T> {

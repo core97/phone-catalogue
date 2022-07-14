@@ -10,7 +10,7 @@ import {
 } from 'mongodb';
 import { MongoDatabase } from 'server/modules/mongo-database';
 import { Schema } from 'server/shared/schema';
-import { INTERNAL_ERROR_MSG } from 'server/shared/constants';
+import { INTERNAL_ERROR_MSG } from 'server/common/errors/error-messages';
 
 @injectable()
 export class Repository<T extends { id: string }> {

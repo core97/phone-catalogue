@@ -1,11 +1,11 @@
 import { injectable } from 'inversify';
 import Joi from 'joi';
 import { Schema } from 'server/shared/schema';
-import { SCHEMA_NAMES } from 'server/shared/constants';
+import { SCHEMA_NAMES } from 'server/common/constants';
 import { regexValidators } from 'utils/regex';
-import { Phone, Manufacter, PhoneColor } from './phone.entity';
+import { PhoneEntity, Manufacter, PhoneColor } from './phone.entity';
 
-const schema = Joi.object<Phone>({
+export const schema = Joi.object<PhoneEntity>({
   id: Joi.string().pattern(regexValidators.objectId).required(),
   color: Joi.valid(
     PhoneColor.BLACK,
@@ -27,7 +27,7 @@ const schema = Joi.object<Phone>({
 });
 
 @injectable()
-export class PhoneSchema extends Schema<Phone> {
+export class PhoneSchema extends Schema<PhoneEntity> {
   constructor() {
     super(schema, SCHEMA_NAMES.PHONE);
   }
